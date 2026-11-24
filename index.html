@@ -1,0 +1,2014 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>MB-330 Field Kit</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: one centred working column under a sticky tab bar; content blocks are plain sections, only interactive objects (questions, cards) get a frame. */
+:root {
+  --bg: #f3f5f2; --surface: #ffffff; --sunk: #e8ece7; --line: #d3dad3;
+  --ink: #17211d; --muted: #56635d; --accent: #0d6a5a; --accent-ink: #ffffff; --accent-soft: #d6ebe5;
+  --amber: #a86a0c; --amber-soft: #f7e8cc; --good: #23733b; --good-soft: #dcefe0; --bad: #a83a2a; --bad-soft: #f6dfda;
+  --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
+  --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
+  --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #111614; --surface: #19201d; --sunk: #0c100e; --line: #2b3531;
+  --ink: #e4ebe7; --muted: #9aa8a1; --accent: #4cc2a6; --accent-ink: #062019; --accent-soft: #163b33;
+  --amber: #e2a649; --amber-soft: #3a2c13; --good: #6fcf8a; --good-soft: #17331f; --bad: #f08a78; --bad-soft: #3d1c17; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #111614; --surface: #19201d; --sunk: #0c100e; --line: #2b3531;
+  --ink: #e4ebe7; --muted: #9aa8a1; --accent: #4cc2a6; --accent-ink: #062019; --accent-soft: #163b33;
+  --amber: #e2a649; --amber-soft: #3a2c13; --good: #6fcf8a; --good-soft: #17331f; --bad: #f08a78; --bad-soft: #3d1c17; color-scheme: dark }
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--surface); }
+h1, h2, h3 { font-family: var(--f-display); line-height: 1.2; text-wrap: balance; margin: 0; }
+h1 { font-size: 1.9rem; font-weight: 700; }
+h2 { font-size: 1.35rem; font-weight: 700; }
+h3 { font-size: 1.08rem; font-weight: 600; }
+p { margin: 0; }
+a { color: var(--accent); }
+button, input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+.top { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--surface); border-bottom: 1px solid var(--line); }
+.top-in { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 10px 0; }
+.brand { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.brand b { font-family: var(--f-display); font-size: 1.2rem; }
+.brand span { color: var(--muted); font-size: .85rem; }
+.tabs { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; margin-top: 6px; }
+.tabs a { flex: none; text-decoration: none; color: var(--muted); padding: 8px 12px 10px; border-bottom: 3px solid transparent; font-weight: 600; font-size: .95rem; }
+.tabs a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--accent); }
+.tabs a .n { display: inline-block; min-width: 1.4em; padding: 0 5px; margin-left: 4px; border-radius: 99px; background: var(--amber-soft); color: var(--amber); font-size: .75rem; text-align: center; font-variant-numeric: tabular-nums; }
+
+main { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 24px 64px; display: grid; gap: 28px; }
+.stack { display: grid; gap: 14px; min-width: 0; }
+.row { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.muted { color: var(--muted); }
+.small { font-size: .875rem; }
+.eyebrow { font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.mono { font-family: var(--f-mono); font-size: .85rem; }
+
+.btn { border: 1px solid var(--line); background: var(--surface); padding: 9px 16px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+.btn:hover { border-color: var(--accent); }
+.btn.primary { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.btn.ghost { background: transparent; }
+.btn.danger { color: var(--bad); }
+.btn[disabled] { opacity: .45; cursor: not-allowed; }
+.chip { border: 1px solid var(--line); background: var(--surface); padding: 5px 12px; border-radius: 99px; cursor: pointer; font-size: .875rem; font-weight: 600; }
+.chip[aria-pressed="true"] { background: var(--ink); color: var(--bg); border-color: var(--ink); }
+.tag { display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; padding: 2px 8px; border-radius: 4px; background: var(--sunk); color: var(--muted); }
+.tag.warn { background: var(--amber-soft); color: var(--amber); }
+
+/* Home */
+.today { display: grid; grid-template-columns: 1fr auto; gap: 16px; align-items: center; padding-block: 8px; }
+.today .big { font-family: var(--f-display); font-size: 3rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; color: var(--accent); }
+@media (max-width: 560px) { .today { grid-template-columns: 1fr; } }
+.loop { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; border: 1px solid var(--line); border-radius: var(--r); background: var(--surface); }
+.loop > div { padding: 14px 16px; display: grid; gap: 4px; min-width: 0; }
+.loop > div + div { border-left: 1px solid var(--line); }
+.loop .k { font-family: var(--f-mono); font-size: .78rem; color: var(--accent); }
+@media (max-width: 640px) { .loop { grid-template-columns: 1fr; } .loop > div + div { border-left: 0; border-top: 1px solid var(--line); } }
+
+.domains { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.dom { display: grid; grid-template-columns: minmax(0, 1fr) 160px auto; gap: 16px; align-items: center; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.dom .meta { color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.bar { height: 8px; background: var(--sunk); border-radius: 99px; overflow: hidden; }
+.bar i { display: block; height: 100%; background: var(--accent); border-radius: 99px; }
+.barlab { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; margin-top: 4px; }
+@media (max-width: 640px) { .dom { grid-template-columns: 1fr; gap: 8px; } }
+
+/* Cards */
+.filters { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.search { flex: 1 1 220px; min-width: 0; padding: 8px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+.clist { display: grid; gap: 10px; }
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); min-width: 0; }
+.card > summary { list-style: none; cursor: pointer; padding: 14px 16px; display: flex; gap: 12px; align-items: baseline; justify-content: space-between; }
+.card > summary::-webkit-details-marker { display: none; }
+.card > summary h3 { flex: 1; min-width: 0; }
+.card[open] > summary { border-bottom: 1px solid var(--line); }
+.cbody { padding: 16px; display: grid; gap: 14px; }
+.field { display: grid; gap: 3px; }
+.field .eyebrow { color: var(--accent); }
+.where { font-family: var(--f-mono); font-size: .82rem; background: var(--sunk); padding: 8px 10px; border-radius: 6px; overflow-wrap: anywhere; }
+.trap { background: var(--amber-soft); padding: 10px 12px; border-radius: 6px; }
+.trap .eyebrow { color: var(--amber); }
+.dots { display: inline-flex; gap: 3px; flex: none; }
+.dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+.dots i.on { background: var(--accent); }
+
+/* Quiz */
+.qbox { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r); padding: 20px; display: grid; gap: 16px; min-width: 0; }
+.qhead { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; align-items: center; }
+.qtext { font-size: 1.12rem; font-weight: 600; }
+.opts { display: grid; gap: 8px; }
+.opt { text-align: left; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; padding: 12px 14px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); cursor: pointer; }
+.opt .mk { width: 24px; height: 24px; border: 2px solid var(--line); border-radius: 50%; display: grid; place-items: center; font-size: .75rem; font-weight: 700; font-family: var(--f-mono); }
+.opt.multi .mk { border-radius: 5px; }
+.opt[aria-pressed="true"] { border-color: var(--accent); background: var(--accent-soft); }
+.opt[aria-pressed="true"] .mk { border-color: var(--accent); background: var(--accent); color: var(--accent-ink); }
+.opt.right { border-color: var(--good); background: var(--good-soft); }
+.opt.wrong { border-color: var(--bad); background: var(--bad-soft); }
+.opt .why { display: block; margin-top: 4px; font-size: .9rem; color: var(--muted); }
+.opt.right .why, .opt.wrong .why { color: var(--ink); }
+.opt[disabled] { cursor: default; }
+.verdict { font-family: var(--f-display); font-size: 1.3rem; font-weight: 700; }
+.verdict.ok { color: var(--good); } .verdict.no { color: var(--bad); }
+.toggle { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; font-size: .92rem; }
+.toggle input { width: 18px; height: 18px; accent-color: var(--amber); }
+.pbar { height: 4px; background: var(--sunk); border-radius: 99px; overflow: hidden; }
+.pbar i { display: block; height: 100%; background: var(--accent); }
+
+/* Labs */
+.steps { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 8px; counter-reset: s; }
+.steps li { display: grid; grid-template-columns: 22px 1fr; gap: 10px; align-items: start; }
+.steps input { width: 18px; height: 18px; margin-top: 3px; accent-color: var(--accent); }
+.steps li.done span { color: var(--muted); text-decoration: line-through; }
+textarea { width: 100%; min-height: 64px; padding: 8px 10px; border: 1px solid var(--line); border-radius: 8px; background: var(--bg); resize: vertical; }
+
+/* Exam results */
+.score { font-family: var(--f-display); font-size: 3.4rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.timer { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
+.note { border-left: 3px solid var(--amber); padding: 8px 12px; background: var(--surface); font-size: .9rem; color: var(--muted); }
+
+/* Overlay */
+.ov { position: fixed; inset: 0; background: rgb(0 0 0 / .45); z-index: 20; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
+.ov .card { max-width: 680px; width: 100%; max-height: 88vh; overflow: auto; }
+.ovhead { display: flex; justify-content: space-between; gap: 10px; padding: 14px 16px; border-bottom: 1px solid var(--line); align-items: baseline; }
+footer { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 0 40px; color: var(--muted); font-size: .82rem; }
+
+/* Learn: topic list + one-card reader */
+.learn { display: grid; grid-template-columns: 300px minmax(0, 1fr); gap: 36px; align-items: start; }
+.toc { display: grid; gap: 4px; position: sticky; top: calc(env(safe-area-inset-top, 0px) + 104px); max-height: calc(100vh - 130px); overflow: auto; padding-right: 4px; }
+.toc .search { margin-bottom: 8px; flex: none; }
+.tochead { width: 100%; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; text-align: left; background: none; border: 0; padding: 10px 8px; border-radius: 6px; cursor: pointer; font-weight: 700; }
+.tochead .small { white-space: nowrap; }
+.tochead:hover { background: var(--sunk); }
+.tocd.open .tochead { color: var(--accent); }
+.toc ul { list-style: none; margin: 0 0 8px; padding: 0 0 0 8px; border-left: 1px solid var(--line); margin-left: 10px; }
+.toci { width: 100%; display: grid; grid-template-columns: 10px 1fr; gap: 8px; align-items: center; text-align: left; background: none; border: 0; padding: 6px 8px; border-radius: 6px; cursor: pointer; font-size: .92rem; color: var(--muted); }
+.toci:hover { color: var(--ink); background: var(--sunk); }
+.toci[aria-current="true"] { color: var(--ink); background: var(--accent-soft); font-weight: 600; }
+.toci i { width: 6px; height: 6px; border-radius: 50%; border: 1px solid var(--line); }
+.toci i.seen { background: var(--accent); border-color: var(--accent); }
+.reader { display: grid; gap: 16px; max-width: 64ch; min-width: 0; }
+.rtitle { font-size: 2rem; }
+.rwhy { color: var(--muted); font-size: 1.02rem; }
+.rplain { font-size: 1.08rem; line-height: 1.7; }
+.rtabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); overflow-x: auto; }
+.rtabs button { flex: none; background: none; border: 0; border-bottom: 3px solid transparent; padding: 8px 12px; font-weight: 600; color: var(--muted); cursor: pointer; }
+.rtabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
+.rtab { min-height: 72px; }
+.rtab.is-trap p { background: var(--amber-soft); padding: 12px 14px; border-radius: 6px; }
+.rlinks { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
+.linkbtn { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; cursor: pointer; }
+.rnav { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(--line); }
+.rnav .btn { font-weight: 500; font-size: .9rem; max-width: 100%; }
+.backbtn { display: none; justify-self: start; }
+@media (max-width: 760px) {
+  .learn { grid-template-columns: 1fr; }
+  .toc { position: static; max-height: none; }
+  .learn .reader { display: none; }
+  .learn.show-reader .toc { display: none; }
+  .learn.show-reader .reader { display: grid; }
+  .backbtn { display: inline-block; }
+  .rtitle { font-size: 1.6rem; }
+}
+</style>
+<style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style></head><body>
+<header class="top"><div class="top-in">
+  <div class="brand"><b>MB-330 Field Kit</b><span>Supply Chain Management Functional Consultant · PedalCo edition</span></div>
+  <nav class="tabs" id="tabs" aria-label="Sections"></nav>
+</div></header>
+<main id="main"></main>
+<footer>Built for Raj and friends. Not affiliated with Microsoft. Skills outline: Microsoft Learn MB-330 study guide (Oct 21, 2026). Video links point to "MB-330 Exam Prep: Full Course" by Exam Pass Pro on YouTube, which is also unofficial.</footer>
+<script>
+// ---- Domains: from Microsoft's official MB-330 study guide, "Skills measured as of October 21, 2026" ----
+const DOMAINS = [
+  { id: "pim", name: "Product information management", short: "Products", weight: "25–30%", w: 27.5,
+    skills: ["Create and manage products", "Configure prerequisites for products", "Configure additional product details", "Manage inventory pricing and costing"] },
+  { id: "inv", name: "Inventory and asset management", short: "Inventory & assets", weight: "20–25%", w: 22.5,
+    skills: ["Manage and process inventory activities", "Manage quality", "Configure asset management", "Implement asset management"] },
+  { id: "scp", name: "Supply chain processes", short: "Buy & sell", weight: "15–20%", w: 17.5,
+    skills: ["Implement procurement and sourcing", "Implement landed cost", "Implement common sales and marketing features"] },
+  { id: "wms", name: "Warehouse and transportation management", short: "Warehouse & transport", weight: "20–25%", w: 22.5,
+    skills: ["Configure warehouse management", "Perform warehouse management processes", "Implement transportation management", "Implement the Warehouse Management mobile app"] },
+  { id: "mp", name: "Master planning", short: "Planning", weight: "10–15%", w: 12.5,
+    skills: ["Configure master planning", "Manage master plans"] }
+];
+
+// ---- Concept cards ----
+// plain: what it is in plain words. why: why a consultant cares. ex: PedalCo example.
+// where: where to find it in D365 (use the search bar if the menu differs in your version).
+// trap: what the exam likes to test. v: [seconds, label] chapter in the YouTube course (unofficial).
+// low: true = Claude is less sure; check Microsoft Learn before relying on it.
+const CARDS = [
+// ===== PRODUCTS =====
+{ id: "pim-products", d: "pim", t: "Products, product masters and variants",
+  plain: "A <b>product</b> is a single item with no variants. A <b>product master</b> is a template that has product dimensions (Color, Size, Style, Configuration, Version). Each combination is a <b>variant</b>. You first create a <b>shared product</b> (for all legal entities), then <b>release</b> it to a legal entity, where it gets company settings and becomes a <b>released product</b>.",
+  why: "Deciding product vs product master is a day-one choice. It drives stock, prices and planning per variant.",
+  ex: "PedalCo's City Bike is a product master with Color (Red, Blue) and Size (S, M, L), so up to 6 variants. A bike bell is a plain product.",
+  where: "Product information management > Products > All products and product masters, then Released products",
+  trap: "Shared = global definition. Released = per legal entity. A product that isn't released to a company can't be used on orders there. For a product master, create or generate the variants, then release them.",
+  v: [247, "Creating Products and Variants"] },
+{ id: "pim-dimgroups", d: "pim", t: "Dimension groups: product, storage, tracking",
+  plain: "<b>Product</b> dimension group: which variant dimensions exist (Color, Size, Style, Configuration, Version). <b>Storage</b> dimension group: where stock is tracked (Site, Warehouse, Location, Inventory status, License plate). <b>Tracking</b> dimension group: how stock is traced (Batch number, Serial number, Owner).",
+  why: "They decide what users must enter on every transaction, and they're hard to change once transactions exist.",
+  ex: "PedalCo frames are serial-tracked, paint is batch-tracked, and the main warehouse runs advanced warehousing so Location, Inventory status and License plate are active.",
+  where: "Product information management > Setup > Dimension and variant groups",
+  trap: "The storage dimension group setting <b>Use warehouse management processes</b> is what makes an item WMS-enabled. Owner is a tracking dimension used for consignment. Only product dimensions create variants.",
+  v: [540, "Product Dimensions and Groups"] },
+{ id: "pim-imgroup", d: "pim", t: "Item model groups",
+  plain: "A bundle of inventory rules for an item: the <b>inventory model</b> (costing method: FIFO, LIFO, LIFO date, Weighted average, Weighted average date, Standard cost, Moving average), whether it's a <b>stocked product</b>, whether <b>physical/financial negative inventory</b> is allowed, <b>quarantine management</b>, registration and picking requirements, and reservation settings.",
+  why: "It controls how cost is calculated and how strict stock rules are. Wrong setup means wrong margins.",
+  ex: "PedalCo uses Standard cost for frames it makes, and FIFO for spare parts sold in the shop. A delivery fee is a non-stocked item.",
+  where: "Inventory management > Setup > Inventory > Item model groups",
+  trap: "Untick <b>Stocked product</b> for services. Clear <b>Physical negative inventory</b> to stop stock going below zero. Quarantine management here creates quarantine orders automatically.",
+  v: [3045, "Inventory Valuation Methods"] },
+{ id: "pim-reshier", d: "pim", t: "Reservation hierarchies",
+  plain: "For WMS items, an ordered list of dimensions. Dimensions <b>above Location</b> are chosen when the order line is reserved. Dimensions <b>below Location</b> are chosen by the warehouse when work is created.",
+  why: "It decides whether sales can reserve a specific batch or serial, or whether the warehouse picks it.",
+  ex: "A PedalCo customer wants all paint from one batch, so Batch sits above Location and sales can reserve that batch.",
+  where: "Warehouse management > Setup > Inventory > Reservation hierarchy",
+  trap: "Batch above location = batch-specific reservation on the order. Batch below location = warehouse decides (for example by FEFO). WMS items need a reservation hierarchy." },
+{ id: "pim-unitseq", d: "pim", t: "Unit sequence groups and unit conversions",
+  plain: "A <b>unit sequence group</b> lists units from smallest to largest (ea, box, pallet) for WMS items. <b>Unit conversions</b> say how many of one unit fit in another. They can be specific to one product.",
+  why: "Warehouse receiving, put-away and picking in boxes or pallets depend on both.",
+  ex: "PedalCo inner tubes: 1 box = 20 ea, 1 pallet = 40 boxes. Sequence: ea, box, pallet.",
+  where: "Warehouse management > Setup > Warehouse > Unit sequence groups. Released product > Manage inventory > Unit conversions",
+  trap: "Sequence group = order of units. Conversion = the factor between them. Intra-class = same kind of unit (ea to box). Inter-class = different kinds (kg to ea).",
+  v: [1403, "Unit Sequences"] },
+{ id: "pim-templates", d: "pim", t: "Product templates",
+  plain: "Save the settings of a product you've set up as a <b>template</b> (just for you, or shared with everyone). When someone creates a new product they pick the template and most fields are filled in.",
+  why: "Faster, more consistent product creation, and fewer missing settings.",
+  ex: "PedalCo saves 'Standard frame' with its item model group, item group and dimension groups.",
+  where: "On the released product page, use the record template options on the Options tab. When you press New, you can choose a template.",
+  trap: "Templates copy setup values. They don't link the products, so later changes to the template don't update existing products.",
+  low: true },
+{ id: "pim-bom", d: "pim", t: "BOMs and BOM versions",
+  plain: "A <b>BOM</b> (bill of materials) lists the components and quantities needed to make an item. A <b>BOM version</b> links a BOM to an item, with a site, dates and a from-quantity. It must be <b>approved</b>, and <b>activated</b> to be the default.",
+  why: "Production, costing and planning all use the active BOM version.",
+  ex: "City Bike BOM: 1 frame, 2 wheels, 1 seat, 1 chain. Version 2 swaps the seat from 1 Jan.",
+  where: "Released product > Engineer > BOM versions. Product information management > Bills of materials and formulas > Bills of materials",
+  trap: "Approve is not activate. Line types: <b>Item</b> (normal), <b>Phantom</b> (sub-assembly exploded into the parent), <b>Pegged supply</b> (creates a linked sub-order), <b>Vendor</b> (subcontracted).",
+  v: [892, "Bills of Materials Setup"] },
+{ id: "pim-category", d: "pim", t: "Category hierarchies",
+  plain: "A tree of categories for grouping products. You give a hierarchy a <b>role</b> (for example procurement, commodity code, or sales reporting) so the right module uses it.",
+  why: "Procurement rules, reporting and attributes hang off categories.",
+  ex: "PedalCo: Bikes > City, Mountain. Parts > Frames, Wheels.",
+  where: "Product information management > Setup > Categories and attributes > Category hierarchies, then Category hierarchy role associations",
+  trap: "A hierarchy does nothing for a module until it's associated with that role." },
+{ id: "pim-lifecycle", d: "pim", t: "Product lifecycle states",
+  plain: "A state (for example Active, Phase out, Obsolete) on a released product or variant. Each state can allow, warn or block chosen business processes, and has an <b>Is active for planning</b> setting.",
+  why: "Stop buying a discontinued model while still selling what's left, across many items at once.",
+  ex: "PedalCo sets the 2025 City Bike to Phase out: purchase orders blocked, sales allowed, not active for planning.",
+  where: "Product information management > Setup > Product lifecycle state",
+  trap: "If <b>Is active for planning</b> is off, master planning ignores the item.",
+  v: [1713, "Product Lifecycle States"] },
+{ id: "pim-attributes", d: "pim", t: "Product attributes",
+  plain: "Extra descriptive fields on a product. An <b>attribute type</b> sets the data type and allowed values (text, integer, decimal, true/false, date). An <b>attribute</b> uses a type.",
+  why: "Lets you describe and filter products without creating extra stock-keeping variants.",
+  ex: "PedalCo attribute 'Frame material' uses a text type with values Aluminium, Carbon, Steel.",
+  where: "Product information management > Setup > Categories and attributes > Attribute types, then Attributes",
+  trap: "Attributes describe. Product dimensions create separate stock. If you don't need stock per value, use an attribute." },
+{ id: "pim-barcodes", d: "pim", t: "Bar codes and GTIN codes",
+  plain: "<b>Bar code setup</b> defines barcode types and formats (for example EAN-13, Code 128). You assign bar codes to an item, variant and unit. <b>GTIN</b> (Global Trade Item Number) codes are stored per item, variant and unit too.",
+  why: "Scanners in the warehouse app read these, so each pack size needs the right code.",
+  ex: "PedalCo inner tubes have one barcode on each tube (ea) and a different one on the box of 20.",
+  where: "Inventory management > Setup > Bar codes. On the released product, open Bar codes or GTIN codes from the action pane (use the search bar if needed).",
+  trap: "Barcodes and GTINs can differ per unit of measure." },
+{ id: "pim-defaultorder", d: "pim", t: "Default order settings",
+  plain: "Per item defaults for purchase, inventory and sales: default site and warehouse, minimum, maximum, multiple and standard quantity, lead time, and a <b>Stopped</b> flag. <b>Site-specific order settings</b> override them per site.",
+  why: "Orders and planned orders follow these, so wrong values cause wrong order quantities.",
+  ex: "PedalCo buys tyres in multiples of 50 with a minimum of 100.",
+  where: "Released product > Plan > Default order settings, and Site specific order settings",
+  trap: "<b>Stopped</b> blocks that order type for the item. Master planning respects minimum and multiple." },
+{ id: "pim-filtercodes", d: "pim", t: "Product filter codes",
+  plain: "Codes on WMS items (for example FRAGILE, HEAVY) that warehouse rules can use to steer handling.",
+  why: "You can write a location directive or template query that treats tagged items differently.",
+  ex: "PedalCo tags carbon frames FRAGILE so a location directive puts them only in ground-level locations.",
+  where: "Set the codes up in Warehouse management setup, then assign them on the released product's Warehouse FastTab (search 'filter' if the page name differs).",
+  trap: "Filter codes are used in queries for location directives, work templates and wave templates. They are not personal list filters.",
+  low: true },
+{ id: "pim-costing", d: "pim", t: "Costing versions and standard cost",
+  plain: "A <b>costing version</b> holds item prices. Type <b>Standard cost</b>: you enter or calculate pending prices, then <b>activate</b> them, and they become the item's standard cost. Type <b>Planned cost</b>: for what-if simulations. Cost groups split cost into parts like material and labour.",
+  why: "A standard cost item can't be transacted until it has an active cost price for the site.",
+  ex: "PedalCo calculates 2027 frame costs in version STD-2027 and activates them on 1 January.",
+  where: "Cost management > Inventory accounting > Costing versions. Released product > Manage costs > Item price",
+  trap: "The item model group must use Standard cost. Planned cost versions are for simulation, so their prices aren't activated as the standard cost. The cost price is per site.",
+  v: [1129, "Cost Groups Configuration"] },
+{ id: "pim-trade", d: "pim", t: "Trade agreements and price groups",
+  plain: "<b>Trade agreements</b> store prices and discounts for sales and purchasing: <b>price</b>, <b>line discount</b>, <b>multiline discount</b>, <b>total discount</b>. You enter them in a trade agreement journal and <b>post</b> it. They can target one customer, a <b>price/discount group</b>, or all. The <b>Activate price/discount</b> page decides which combinations the system searches. Base prices on the released product are used when no agreement applies.",
+  why: "Every sales and purchase price depends on this setup.",
+  ex: "PedalCo puts dealers in group DEALERS and gives them a 10% line discount on bikes. Retail customers pay the base price.",
+  where: "Sales and marketing > Prices and discounts > Trade agreement journals (Procurement and sourcing has the same for vendors)",
+  trap: "Not posted = not used. The relation (for example item group + customer group) must be activated. Line = one line. Multiline = several lines in the same multiline discount group. Total = whole order.",
+  v: [4599, "Trade Agreements Procurement"] },
+
+// ===== INVENTORY & ASSETS =====
+{ id: "inv-journals", d: "inv", t: "Inventory journals",
+  plain: "<b>Movement</b>: stock in or out, you choose the offset ledger account. <b>Inventory adjustment</b>: stock in or out, offset comes from the item's posting profile. <b>Transfer</b>: move between dimensions (warehouse, location, batch) in one step. <b>BOM</b>: report a BOM item as finished and use its components, without a production order. <b>Item arrival</b>: register received goods. <b>Counting</b>: count stock and post the difference.",
+  why: "Picking the right journal gets the stock and the accounting right.",
+  ex: "PedalCo writes off 3 damaged helmets to a 'Marketing samples' expense account with a movement journal.",
+  where: "Inventory management > Journal entries > Items (Movement, Inventory adjustment, Transfer, Bills of materials), Item arrival, Item counting",
+  trap: "Movement vs adjustment: the question is who decides the offset account. Movement = you. Adjustment = posting profile.",
+  v: [2232, "Inventory Journals Movement"] },
+{ id: "inv-transfer", d: "inv", t: "Transfer orders",
+  plain: "Move stock between warehouses in steps: create the order, <b>ship</b> it (stock goes to a <b>transit warehouse</b>), then <b>receive</b> it.",
+  why: "You can see stock that's on the road, and it supports picking and shipping documents.",
+  ex: "PedalCo sends 30 bikes from the main warehouse to its city shop. While on the truck they sit in transit.",
+  where: "Inventory management > Outbound orders > Transfer order",
+  trap: "Transfer order = ship and receive with transit. Transfer journal = one step, no transit. Warehouses used for transfer orders need a transit warehouse (a warehouse of type Transit) assigned." },
+{ id: "inv-close", d: "inv", t: "Inventory close and recalculation",
+  plain: "<b>Inventory close</b> settles issues against receipts using the item's costing method, posts cost adjustments, and locks the period: nothing can be posted on or before the closing date. <b>Recalculation</b> adjusts costs but doesn't settle or lock. You can <b>cancel</b> a close, newest first.",
+  why: "Without close, FIFO or weighted average issue costs aren't final.",
+  ex: "PedalCo closes inventory at 31 October before closing the ledger period. Mid-month it runs recalculation to see costs early.",
+  where: "Inventory management > Periodic tasks > Closing and adjustment",
+  trap: "Recalc does not lock. Moving average items don't need close to settle costs." },
+{ id: "inv-blocking", d: "inv", t: "Inventory blocking and batch disposition codes",
+  plain: "<b>Inventory blocking</b> puts stock on hold so it can't be used. You create manual blockings yourself and remove them by deleting the line. Quality orders can block stock automatically. A <b>batch disposition code</b> on a batch can block that batch from processes like sales or picking.",
+  why: "Hold damaged or suspect stock without moving it.",
+  ex: "PedalCo blocks 5 bikes with scratched paint. An expired paint batch gets a disposition code that blocks picking.",
+  where: "Inventory management > Periodic tasks > Inventory blocking. Batch disposition codes are under Inventory management setup (search 'batch disposition').",
+  trap: "Manual blocking is removed by deleting it. Blocking created by a quality order is released by the quality order." },
+{ id: "inv-abc", d: "inv", t: "ABC classification and inventory reports",
+  plain: "<b>ABC classification</b> sorts items into classes A, B and C by value, contribution margin, revenue or carrying cost, using percentage thresholds you choose. The class is saved on the item.",
+  why: "Focus counting and control on the few items that matter most.",
+  ex: "PedalCo: frames are class A (count monthly), bolts are class C (count yearly).",
+  where: "Inventory management > Periodic tasks > ABC classification",
+  trap: "You pick the model (value, margin, revenue, carrying cost) when you run it." },
+{ id: "inv-quality", d: "inv", t: "Quality associations and quality orders",
+  plain: "Building blocks: <b>tests</b> (what you measure), <b>test groups</b> (a set of tests plus sampling), <b>item sampling</b>. A <b>quality association</b> links items (and vendor, customer or all) to a test group for an event, like purchase product receipt or production report as finished. When the event happens, a <b>quality order</b> is created. You enter results and <b>validate</b>: pass or fail. It can block stock until it passes.",
+  why: "Automatic, consistent inspection instead of relying on people to remember.",
+  ex: "PedalCo checks 10% of every frame receipt from vendor Steelworks for weld strength.",
+  where: "Inventory management > Setup > Quality control. Quality orders: Inventory management > Periodic tasks > Quality management > Quality orders",
+  trap: "Turn on <b>Use quality management</b> in Inventory and warehouse management parameters first. The association is what triggers automatic quality orders." },
+{ id: "inv-nonconf", d: "inv", t: "Nonconformances",
+  plain: "A record of a quality problem: item, quantity, <b>problem type</b>. Types: Customer, Vendor, Internal, Production, Service request. After <b>approval</b> you add corrections and diagnostics, and you can create a quality order from it.",
+  why: "Tracks complaints and fixes so the same problem doesn't repeat.",
+  ex: "A customer reports a bent wheel. PedalCo logs a Customer nonconformance and a correction: inspect the wheel batch.",
+  where: "Inventory management > Periodic tasks > Quality management > Nonconformances",
+  trap: "Approve before corrections. Problem types decide which nonconformance types they can be used with." },
+{ id: "inv-quarantine", d: "inv", t: "Quarantine orders",
+  plain: "Move stock to a <b>quarantine warehouse</b> to inspect it. Created by hand, or automatically on receipt if the item model group has quarantine management. Steps: <b>Start</b> (moves to quarantine), <b>Report as finished</b>, <b>End</b> (moves back). You can also scrap.",
+  why: "Physically separates suspect stock and keeps it out of sales.",
+  ex: "PedalCo quarantines a delivery of brake pads until a lab checks them.",
+  where: "Inventory management > Periodic tasks > Quality management > Quarantine orders",
+  trap: "For WMS-enabled items, use inventory status (and quality orders) instead of quarantine orders." },
+{ id: "am-assets", d: "inv", t: "Assets, asset types and functional locations",
+  plain: "An <b>asset</b> is equipment you maintain. An <b>asset type</b> groups assets with shared settings like counters. A <b>functional location</b> is where an asset is installed, in a hierarchy (plant > line > station). Assets can move between functional locations.",
+  why: "Maintenance history, costs and plans hang off this structure.",
+  ex: "PedalCo's 'Paint robot 1' is asset type Robot, installed at PLANT1-PAINT-01.",
+  where: "Asset management > Assets > All assets. Asset management > Functional locations > All functional locations. Asset types are in Asset management setup.",
+  trap: "Functional location = the place. Asset = the thing. The functional location type controls things like whether more than one asset can be installed." },
+{ id: "am-lifecycle", d: "inv", t: "Lifecycle states and models (assets and work orders)",
+  plain: "<b>Lifecycle states</b> (for example Created, Active, Under repair, Scrapped) grouped into a <b>lifecycle model</b> that you attach to asset types. Work orders have their own lifecycle states (for example Created, Scheduled, In progress, Finished) that control what can be done at each step.",
+  why: "They control what's allowed in each stage and give you status reporting.",
+  ex: "PedalCo's paint robot moves from Active to Under repair while its work order runs.",
+  where: "Asset management > Setup (lifecycle states and lifecycle models for assets and functional locations; work order lifecycle states under Work orders)",
+  trap: "A state's settings decide what's allowed, for example whether a work order can be scheduled or updated in that state." },
+{ id: "am-workorders", d: "inv", t: "Work orders: types, scheduling, consumption",
+  plain: "A <b>work order</b> is a maintenance job on one or more assets. The <b>work order type</b> (for example Corrective, Preventive) sets defaults. Jobs are <b>scheduled</b> to workers based on capacity and calendars. <b>Consumption</b> (hours, items, expenses) is registered with journals. Work order settings live in Asset management parameters.",
+  why: "This is where maintenance work and cost are planned and captured.",
+  ex: "A technician spends 3 hours and uses 2 nozzles on the robot. Both are registered on the work order.",
+  where: "Asset management > Work orders > All work orders. Parameters: Asset management > Setup > Asset management parameters",
+  trap: "Scheduling uses worker capacity. Consumption is posted through journals (hours, items, expenses)." },
+{ id: "am-maint", d: "inv", t: "Preventive vs reactive maintenance",
+  plain: "<b>Reactive</b>: something breaks, a <b>maintenance request</b> is created, approved and turned into a work order. <b>Preventive</b>: <b>maintenance plans</b> are time-based (every 3 months) or counter-based (every 500 hours). The <b>maintenance schedule</b> lists due plan lines and you create work orders from it. <b>Maintenance rounds</b> = same job across many assets.",
+  why: "Exam scenarios often ask which tool fits a described situation.",
+  ex: "Paint robot nozzle cleaning every 200 operating hours (counter). An operator reporting a leak creates a maintenance request.",
+  where: "Asset management > Setup > Preventive maintenance > Maintenance plans. Asset management > Preventive maintenance > Maintenance schedule. Asset management > Maintenance requests",
+  trap: "Counter-based plans need counter readings registered on the asset." },
+{ id: "am-loans", d: "inv", t: "Asset loans (check this one yourself)",
+  plain: "The official outline lists 'Manage and configure asset loans'. I couldn't confirm the exact setup from memory, so I've left the details out rather than guess.",
+  why: "It's in the skills outline, so expect it to come up.",
+  ex: "Lab idea: in your environment, open Asset management and search for 'loan'. Note which page holds it, what fields it has, and how an asset is returned.",
+  where: "Asset management (search 'loan')",
+  trap: "Read the Microsoft Learn page on asset loans before the exam.",
+  low: true },
+
+// ===== BUY & SELL =====
+{ id: "scp-vendors", d: "scp", t: "Vendors",
+  plain: "The vendor record holds the vendor group (drives posting), payment and delivery terms, currency, tax group and a <b>Hold</b> status (for example No, Invoice, All, Payment, Requisition, Never). You can also keep an <b>approved vendor list</b> per product.",
+  why: "Every purchase starts from the vendor's setup.",
+  ex: "PedalCo puts vendor Steelworks on hold 'Invoice' during a pricing dispute: POs still allowed, invoices blocked.",
+  where: "Procurement and sourcing > Vendors > All vendors (also under Accounts payable)",
+  trap: "Hold = All blocks every transaction. Approved vendor list check can be 'warning only' or 'not allowed'." },
+{ id: "scp-req", d: "scp", t: "Purchase requisitions, RFQs and purchase orders",
+  plain: "<b>Requisition</b>: an internal request, approved by workflow, then released to a PO. <b>RFQ</b> (request for quotation): send to several vendors, enter their replies, compare, accept one, which creates a PO or agreement. <b>Purchase order</b>: confirm, receive (product receipt), invoice.",
+  why: "This is the core procure-to-pay flow.",
+  ex: "A PedalCo engineer requests 10 torque wrenches. After approval, the requisition becomes a PO to the tool vendor.",
+  where: "Procurement and sourcing > Purchase requisitions / Requests for quotation / Purchase orders",
+  trap: "Requisitions need an active workflow. With change management on, POs need approval before confirmation.",
+  v: [3565, "Purchase Requisitions Setup"] },
+{ id: "scp-agree", d: "scp", t: "Purchase agreements and vendor rebates",
+  plain: "A <b>purchase agreement</b> is a commitment to buy a quantity or value from a vendor over a period at agreed prices. POs that reference it are <b>release orders</b> and use up the commitment. <b>Vendor rebates</b> are set up as deals in Rebate management.",
+  why: "Locks in prices and tracks whether you hit your commitments.",
+  ex: "PedalCo agrees to buy 10,000 tyres in 2027 at a fixed price from TyreCo. Each monthly PO is a release order.",
+  where: "Procurement and sourcing > Purchase agreements. Rebate management > Rebate management deals",
+  trap: "The agreement must be <b>Effective</b> before release orders can use it." },
+{ id: "scp-consign", d: "scp", t: "Consignment inventory",
+  plain: "The vendor owns stock in your warehouse until you use it. It uses the <b>Owner</b> tracking dimension. A <b>consignment replenishment order</b> brings stock in with no value. When you use it, the <b>inventory ownership change journal</b> moves ownership to you and creates a PO line.",
+  why: "Common in real projects and a favourite exam topic.",
+  ex: "BoltCo keeps bolts in PedalCo's warehouse. PedalCo only pays for what it takes.",
+  where: "Procurement and sourcing > Consignment",
+  trap: "No Owner dimension = no consignment. Ownership change journal = the moment you buy it." },
+{ id: "scp-overunder", d: "scp", t: "Over/under delivery and delivery schedules",
+  plain: "<b>Over/under delivery</b> percentages say how much more or less than ordered can be received without an error. You allow it in procurement parameters and set the percentage on the item. A <b>delivery schedule</b> splits one order line into several dates and quantities.",
+  why: "Real deliveries rarely match exactly.",
+  ex: "PedalCo allows 5% overdelivery on tyres. One line of 1,200 tyres is split into 3 monthly deliveries.",
+  where: "Released product (Purchase and Sell FastTabs). Order line > Delivery schedule",
+  trap: "Both the parameter and the percentage must be set." },
+{ id: "scp-catpol", d: "scp", t: "Procurement categories, charges and purchasing policies",
+  plain: "<b>Procurement categories</b> group what you buy, with linked vendors. <b>Charge codes</b> are extra costs (freight, insurance) on order headers or lines. <b>Auto charges</b> add them automatically. <b>Purchasing policies</b> are rules per organization: which categories people can request, catalogs, requisition rules.",
+  why: "Controls who can buy what, and makes sure extra costs are captured.",
+  ex: "PedalCo's office staff can only request from 'Office supplies'. Freight is added to every PO from Asia by an auto charge.",
+  where: "Procurement and sourcing > Procurement categories. Procurement and sourcing > Setup > Policies > Purchasing policies. Charges codes are under Procurement and sourcing setup.",
+  trap: "Purchasing policies apply to organizations (legal entities or operating units), not to individual items." },
+{ id: "scp-collab", d: "scp", t: "Vendor collaboration",
+  plain: "A portal where external vendors see POs sent to them, accept or reject them, or propose changes. They can also see consignment stock. Each vendor has a <b>Collaboration activation</b> setting.",
+  why: "Less email back and forth on order confirmations.",
+  ex: "TyreCo accepts PedalCo's POs in the portal.",
+  where: "Vendor record > General > Collaboration activation. Vendor collaboration users are set up per vendor contact.",
+  trap: "<b>Active (PO is auto-confirmed)</b>: vendor accepts, PO is confirmed. <b>Active (PO isn't auto-confirmed)</b>: someone at your company still confirms it.",
+  v: [4370, "Vendor Collaboration Setup"] },
+{ id: "scp-receive", d: "scp", t: "Registration, product receipt and vendor returns",
+  plain: "<b>Registration</b> records that goods arrived (arrival journal, PO line, or the warehouse app). <b>Product receipt</b> posts the receipt: physical stock update and a product receipt document. <b>Vendor return</b>: an order line with negative quantity, often with the vendor's return number.",
+  why: "Exam questions test the order of these steps.",
+  ex: "PedalCo's dock registers 100 tyres in the morning and posts the product receipt after checking them.",
+  where: "Purchase order > Receive > Product receipt",
+  trap: "Registered is not received. Product receipt is the posting step." },
+{ id: "scp-wf", d: "scp", t: "Procurement workflows",
+  plain: "Configurable approvals: purchase requisition review, purchase order approval (when change management is on), and more.",
+  why: "Almost every client wants approvals by amount or category.",
+  ex: "PedalCo: requisitions over $5,000 need the plant manager's approval.",
+  where: "Procurement and sourcing > Setup > Procurement and sourcing workflows",
+  trap: "No active requisition workflow = requisitions can't be submitted. Change management is switched on in procurement parameters." },
+{ id: "lc-voyage", d: "scp", t: "Landed cost: voyages and costs",
+  plain: "Tracks import shipments and their extra costs (freight, duty, insurance) and adds them to item cost. A <b>voyage</b> holds <b>shipping containers</b> and <b>folios</b> (groups of PO or transfer order lines). <b>Journey templates</b> define the legs. <b>Cost type codes</b> are the kinds of cost. <b>Auto costs</b> add costs automatically. The <b>tracking control center</b> follows voyage and container statuses. You can estimate costs, then compare with actuals within <b>over/under tolerances</b>.",
+  why: "Gives true item cost for imported goods.",
+  ex: "PedalCo imports frames from Taiwan: one voyage, two containers, freight and 4% duty added automatically.",
+  where: "Landed cost > Voyages > All voyages. Landed cost > Setup (parameters, cost type codes, journey templates, auto costs)",
+  trap: "Costs are spread across lines by a method like quantity, amount, weight or volume. Voyage statuses are configured in setup." },
+{ id: "sales-flow", d: "scp", t: "Customers, quotations, sales orders, reservations and returns",
+  plain: "<b>Customer</b> record: group, terms, credit limit. <b>Quotation</b>: confirm it to create a sales order. <b>Sales order</b>: confirm, pick, pack (packing slip), invoice. <b>Reservation</b>: Manual, Automatic, or Explosion. <b>Return order</b> (RMA): return reason codes and <b>disposition codes</b> decide what happens: Credit, Credit only, Scrap, Replace and credit, Replace and scrap, Return to customer.",
+  why: "This is the core order-to-cash flow.",
+  ex: "A shop returns a damaged bike. It's received and scrapped, and the shop gets a credit (disposition: Scrap).",
+  where: "Sales and marketing > Sales quotations / Sales orders / Sales return",
+  trap: "Credit only = credit without the item coming back. Scrap = item is received, then scrapped, and credited.",
+  v: [5092, "Sales Orders Creation"] },
+{ id: "sales-agree", d: "scp", t: "Sales agreements, sales groups and commissions",
+  plain: "A <b>sales agreement</b> is a customer's commitment to buy a quantity or value at agreed prices. <b>Sales groups</b> list sales reps and their shares. <b>Commission calculation</b> sets who earns what, based on revenue or contribution margin. Commission posts when the invoice posts.",
+  why: "Common setup at go-live.",
+  ex: "PedalCo reps Ana and Ben split a 5% commission 60/40 on dealer orders.",
+  where: "Sales and marketing > Sales agreements. Commission setup is under Sales and marketing > Setup > Commissions",
+  trap: "No invoice = no commission posted." },
+{ id: "sales-ic", d: "scp", t: "Intercompany orders",
+  plain: "Trade between legal entities in the same D365. The vendor in company A is linked to a customer in company B with an <b>intercompany trading relationship</b>. A PO in A then creates a sales order in B automatically. <b>Direct delivery</b> ships from B straight to A's customer.",
+  why: "Groups with several companies use it all the time.",
+  ex: "PedalCo US buys bikes from PedalCo Manufacturing. The US PO creates the factory's sales order.",
+  where: "Customer or vendor > Setup > Intercompany",
+  trap: "Both companies must be in the same environment and the trading relationship must be active.",
+  v: [10832, "Intercompany Planning Setup"] },
+{ id: "sales-rebate", d: "scp", t: "Customer rebates and product bundles",
+  plain: "<b>Rebates</b> are set up as deals in Rebate management (for example 2% back above 1,000 bikes a year): accrue, process, post. A <b>product bundle</b> is sold as one item made of components defined in a BOM. When the order is confirmed, the bundle line is broken into component lines.",
+  why: "Both are in the official outline.",
+  ex: "PedalCo sells a 'Commuter kit' bundle: helmet, lock and lights.",
+  where: "Rebate management > Rebate management deals. Bundles: search 'bundle' in Sales and marketing or Product information management parameters.",
+  trap: "Check the bundle details on Microsoft Learn. This part is from general knowledge.",
+  low: true },
+{ id: "sales-atp", d: "scp", t: "Delivery date control: ATP and CTP",
+  plain: "<b>Delivery date control</b> on a sales line can be None, Sales lead time, <b>ATP</b> (available-to-promise: uses on-hand plus planned receipts and issues within the ATP time fence), ATP + Issue margin, or <b>CTP</b> (capable-to-promise: uses master planning to work out when you can make or buy it, including capacity).",
+  why: "Giving customers realistic delivery dates is a key consulting topic.",
+  ex: "A dealer orders 50 bikes. ATP says 12 March from planned receipts. CTP says 20 March once factory capacity is included.",
+  where: "Sales order line > Delivery date control. Defaults on the released product and in sales parameters",
+  trap: "ATP doesn't look at production capacity. CTP does, using the dynamic plan.",
+  v: [5567, "Order Promising ATP"] },
+
+// ===== WAREHOUSE & TRANSPORT =====
+{ id: "wms-structure", d: "wms", t: "Sites, warehouses, locations, profiles and zones",
+  plain: "Site > warehouse > location. A <b>location format</b> is the naming pattern (aisle-rack-shelf-bin). A <b>location profile</b> sets behaviour: license plate tracking, mixed items or batches allowed, location type. <b>Location types</b> mark special places like staging or final shipping. <b>Zones</b> group locations (for example Bulk, Picking) for use in rules.",
+  why: "Every warehouse rule refers to these.",
+  ex: "PedalCo warehouse 24: zones BULK and PICK. Locations like A-01-03-B.",
+  where: "Warehouse management > Setup > Warehouse (Locations, Location formats, Location profiles, Location types, Zones)",
+  trap: "A warehouse must have <b>Use warehouse management processes</b> ticked for advanced WMS.",
+  v: [1958, "Warehouses Zones and Locations"] },
+{ id: "wms-directives", d: "wms", t: "Location directives",
+  plain: "Rules that say where to <b>pick</b> from or <b>put</b> to, per work order type (purchase, sales, transfer, replenishment, production). Built as header, <b>lines</b> (quantity and unit ranges) and <b>actions</b> (a location query plus a strategy like Consolidate or Empty location with no incoming work). Checked in <b>sequence</b>: the first that finds a location wins.",
+  why: "One of the most tested warehouse topics.",
+  ex: "PedalCo: full pallets of tyres go to BULK, partial quantities go to the PICK zone.",
+  where: "Warehouse management > Setup > Location directives",
+  trap: "If the wrong location is used, check the sequence order first. Lines can be restricted by unit.",
+  v: [6804, "Location Directives Setup"] },
+{ id: "wms-templates", d: "wms", t: "Work, wave and load templates; work policies",
+  plain: "<b>Work template</b>: which work lines (pick, put) are created for a work order type, when it applies (query), and <b>work header breaks</b> (for example max lines per work). <b>Wave template</b>: how shipping, production or kanban waves are processed (steps such as allocate, replenish, containerize, create work, release). <b>Load template</b>: equipment limits like max weight and volume. <b>Work policy</b>: stops work being created for chosen processes, locations or products.",
+  why: "Controls how work is created for warehouse staff.",
+  ex: "PedalCo limits pick work to 10 lines and has a work policy so transfer receipts at the city shop don't create work.",
+  where: "Warehouse management > Setup > Work (Work templates, Work policies), Waves > Wave templates, Load > Load templates",
+  trap: "Templates are checked in sequence, like directives. A work policy stops work being created. It doesn't change how work is created.",
+  v: [7078, "Work Templates Setup"] },
+{ id: "wms-labels", d: "wms", t: "Labels, packing and containerization",
+  plain: "Print <b>license plate</b>, <b>wave</b>, <b>product</b> and <b>GS1</b> labels using label layouts and <b>document routing</b>. <b>Physical dimensions</b> (weight, size per unit) feed <b>containerization</b>, which uses container types, container groups and container build templates. Packing can be done at a packing station.",
+  why: "Labels and packing are needed to ship anything.",
+  ex: "PedalCo prints a license plate label for each pallet at receipt and packs online orders into standard boxes.",
+  where: "Warehouse management > Setup > Document routing. Container setup is under Warehouse management > Setup > Containers",
+  trap: "Containerization is a wave step that uses container build templates." },
+{ id: "wms-inout", d: "wms", t: "Inbound and outbound flows; inventory status",
+  plain: "<b>Inbound</b>: goods arrive, are registered in the mobile app (PO receiving, license plate receiving with an ASN), put-away work is created by location directives, and a worker puts them away. <b>Outbound</b>: release to warehouse, shipment and load, wave, pick work, put to staging, pack, ship confirm. <b>Inventory status</b> (for example Available, Damaged) can be marked as blocking.",
+  why: "Exam scenarios walk through these steps.",
+  ex: "A damaged box at PedalCo receiving is registered with status Damaged, which is a blocking status.",
+  where: "Warehouse management > Setup > Inventory > Inventory statuses. Release to warehouse from the sales order or the Release to warehouse page",
+  trap: "A blocking inventory status means the stock can't be reserved. The default status is set in warehouse management parameters." },
+{ id: "wms-replen", d: "wms", t: "Replenishment, cycle counting, cross docking",
+  plain: "<b>Replenishment</b>: <b>min/max</b> keeps pick locations above a minimum, <b>wave demand</b> tops up when a wave lacks stock, <b>load demand</b> works by load. <b>Cycle counting</b>: plans or thresholds create counting work. Differences outside tolerance go to <b>Cycle count work pending review</b>. <b>Cross docking</b>: received goods go straight to outbound for waiting orders.",
+  why: "Keeps pick faces full and stock accurate.",
+  ex: "PedalCo's helmet pick location is refilled from bulk when it drops below 10.",
+  where: "Warehouse management > Setup > Replenishment. Cycle counting plans are under Warehouse management > Setup > Cycle counting",
+  trap: "Wave demand replenishment runs as part of wave processing. Min/max runs on a schedule.",
+  v: [2793, "Cycle Counting Processes"] },
+{ id: "wms-loadplan", d: "wms", t: "Load planning workbenches",
+  plain: "Inbound and outbound <b>load planning workbenches</b> build loads from open order lines, check them against load templates, rate them, and release them to the warehouse.",
+  why: "Where transport and warehouse planning meet.",
+  ex: "PedalCo groups three dealer orders into one truck load and releases it.",
+  where: "Transportation management > Planning > Load planning workbench (and Inbound load planning workbench)",
+  trap: "You can release a load to the warehouse straight from the workbench.",
+  v: [8376, "Load Building Setup"] },
+{ id: "wms-mobile", d: "wms", t: "Warehouse Management mobile app",
+  plain: "Install the app from the app store and connect it with Microsoft Entra ID. Set up <b>workers</b> (user ID, default warehouse, menu). <b>Menu items</b> are Indirect (inquiries, like license plate inquiry) or Work (create or carry out work, like PO receiving or sales picking). <b>Menus</b> group menu items. <b>Detours</b> let a worker jump to another menu item from a step and come back with data filled in.",
+  why: "Every warehouse process runs through the app.",
+  ex: "A PedalCo worker doing a pick detours to license plate inquiry, then returns to the pick.",
+  where: "Warehouse management > Setup > Mobile device (Mobile device menu items, Mobile device menu, Mobile device steps). Workers: Warehouse management > Setup > Worker",
+  trap: "Detours are set on the <b>Mobile device steps</b> page.",
+  v: [6533, "Mobile Device Configuration"] },
+{ id: "tms-rates", d: "wms", t: "Carriers, rating and routing",
+  plain: "<b>Shipping carriers</b> have services and can be grouped in <b>carrier groups</b>. A <b>rate engine</b> does the calculation. A <b>rate master</b> holds the rate data. <b>Route plans</b> are routes with segments and hubs. <b>Route guides</b> are rules that pick a route plan. The <b>rating and routing workbench</b> compares carriers. <b>Dock appointment scheduling</b> books time slots at the dock.",
+  why: "Picks the cheapest valid carrier and route.",
+  ex: "PedalCo rate shops between two carriers for a 400 kg shipment and books a 10:00 dock slot.",
+  where: "Transportation management > Setup (Carriers, Rating, Routing, Engines)",
+  trap: "Route guide chooses a route plan. Rate engine calculates. Rate master stores the rates.",
+  v: [8121, "Rating and Routing Concepts"] },
+{ id: "tms-freight", d: "wms", t: "Freight bills and reconciliation",
+  plain: "When a load ships, <b>freight bill details</b> are created from the rates. The carrier's invoice is matched against them, by hand or <b>automatically</b>. An <b>audit master</b> sets tolerances for automatic matching. <b>Reconciliation reasons</b> explain differences. Freight bill types and their assignments set the matching fields.",
+  why: "Stops overpaying carriers.",
+  ex: "A carrier bills $412 for a $400 shipment. Inside the 5% tolerance, it auto-matches.",
+  where: "Transportation management > Freight reconciliation (search 'freight bill' or 'audit master')",
+  trap: "Audit master = tolerance for automatic reconciliation.",
+  v: [8676, "Freight Reconciliation Configuration"] },
+
+// ===== PLANNING =====
+{ id: "mp-coverage", d: "mp", t: "Coverage groups, coverage codes and item coverage",
+  plain: "A <b>coverage group</b> holds planning rules. The <b>coverage code</b> is the main one: <b>Period</b> (one planned order covers all demand in the coverage period), <b>Requirement</b> (one planned order per requirement), <b>Min./Max.</b> (when stock falls below min, refill to max), <b>Manual</b> (no planned orders), <b>Priority</b> (Planning Optimization only). <b>Item coverage</b> sets item-specific values like min and max per site or warehouse.",
+  why: "Coverage settings decide every planned order.",
+  ex: "PedalCo: frames use Period, 7 days. Helmets use Min/Max, 50 to 200.",
+  where: "Master planning > Setup > Coverage > Coverage groups. Released product > Plan > Item coverage",
+  trap: "The coverage period in days only applies to the Period code. Manual = master planning creates nothing.",
+  v: [9815, "Coverage Groups Setup"] },
+{ id: "mp-posneg", d: "mp", t: "Positive days and negative days",
+  plain: "<b>Positive days</b> are subtracted from a requirement's due date. An existing receipt earlier than that window can't be used for it, so a new planned order is created. <b>Negative days</b> are added to the due date. A receipt arriving later than the due date but inside that window can still be used: no new planned order, you get an action or futures message instead.",
+  why: "One of the most confusing planning settings, and Microsoft tests it.",
+  ex: "A PedalCo sale is due 19 Sept and a PO arrives 20 Sept. Negative days 0: a new planned order is created. Negative days 3: the PO is used and a delay message appears.",
+  where: "Coverage group (and item coverage)",
+  trap: "Negative days 0 means planning always creates a new planned order for late supply. Microsoft suggests negative days above the item's lead time, plus dynamic negative days." },
+{ id: "mp-fences", d: "mp", t: "Time fences, action messages and delays",
+  plain: "<b>Time fences</b> are day windows. <b>Coverage</b>: how far ahead planning looks (Microsoft suggests longer than total lead time). <b>Freeze</b>: planned orders inside aren't changed. <b>Firming</b>: planned orders inside are firmed automatically. Others: BOM explosion, capacity, forecast plan, action message, calculated delays. <b>Action messages</b> suggest changes to existing orders: advance, postpone, increase, decrease. <b>Calculated delays</b> warn when supply can't meet the date.",
+  why: "Controls how far ahead and how aggressively planning acts.",
+  ex: "PedalCo: coverage 100 days, firming 7 days, so next week's planned purchases are firmed automatically.",
+  where: "Coverage group (Other tab), item coverage, and master plan (the master plan setting overrides)",
+  trap: "A time fence on the master plan overrides the coverage group and item coverage.",
+  low: true },
+{ id: "mp-plans", d: "mp", t: "Master plans, Planning Optimization and planned orders",
+  plain: "A <b>static plan</b> is the main plan you run and keep. A <b>dynamic plan</b> is used for CTP and quick updates. Both are named in <b>Master planning parameters</b>. <b>Planning Optimization</b> is the planning engine Microsoft supports going forward. After a run, review <b>planned orders</b> (purchase, transfer, production) and <b>firm</b> them to turn them into real orders. <b>Period templates</b> set time buckets (days, weeks, months) for pages like the <b>Supply schedule</b>, where you see supply and demand by period and can edit planned orders.",
+  why: "This is the planner's daily routine.",
+  ex: "PedalCo runs the static plan nightly. Each morning the buyer firms planned purchase orders for tyres.",
+  where: "Master planning > Setup > Master planning parameters. Master planning > Master planning > Run. Master planning > Common > Planned orders",
+  trap: "Firming turns a planned order into a real order. Changing the static plan name in parameters changes which plan users see by default.",
+  v: [10341, "Running Master Scheduling"] },
+{ id: "mp-safety", d: "mp", t: "Safety margins and safety stock journal",
+  plain: "<b>Safety margins</b> are extra days. <b>Receipt margin</b>: added after the receipt date before stock counts as available. <b>Issue margin</b>: subtracted from the requirement date, so goods are needed earlier. <b>Reorder margin</b>: added to purchase lead time. The <b>safety stock journal</b> proposes minimum stock from past usage. Post it to update item coverage minimums.",
+  why: "Buffers against late vendors and slow receiving.",
+  ex: "PedalCo adds a 1-day receipt margin because inspecting frames takes a day.",
+  where: "Master plan and coverage group setup. Safety stock journal: Master planning > Master planning > Run > Safety stock calculation",
+  trap: "The safety stock journal changes item coverage minimums only when you post it.",
+  low: true }
+];
+// ---- Scenario questions (written by Claude for practice; not real exam questions) ----
+// a = indexes of correct options. x = why each option is right or wrong, same order as o.
+const QUESTIONS = [
+// ===== PRODUCTS =====
+{ id: "q-pim-1", d: "pim", c: "pim-products",
+  q: "PedalCo sells a helmet in 3 sizes and 2 colours. It wants separate stock and prices for each combination. How should the helmet be set up?",
+  o: ["A product master with a product dimension group that has Size and Color, with the needed variants released",
+      "A product with Size and Color added as tracking dimensions",
+      "Six separate products, one per combination",
+      "A product with Size and Color as product attributes"],
+  a: [0],
+  x: ["Right. Product dimensions on a product master create variants, each with its own stock and price.",
+      "Tracking dimensions are Batch, Serial and Owner. They trace stock but don't create variants.",
+      "It would work, but you'd lose the shared master data and variant reporting. Not the D365 way.",
+      "Attributes describe a product. They don't create separate stock."] },
+{ id: "q-pim-2", d: "pim", c: "pim-products",
+  q: "A new product shows in 'All products and product masters', but users in legal entity USMF can't add it to a sales order. What's the most likely cause?",
+  o: ["It hasn't been released to USMF", "It has no BOM", "It isn't in a category hierarchy", "It has no barcode"],
+  a: [0],
+  x: ["Right. Shared products must be released to a legal entity before they can be used there.",
+      "Purchased or sold items don't need a BOM.",
+      "Categories help reporting and procurement, but they don't block sales orders.",
+      "Barcodes help scanning but aren't needed to order."] },
+{ id: "q-pim-3", d: "pim", c: "pim-dimgroups", multi: true,
+  q: "Which TWO are storage dimensions?",
+  o: ["Warehouse", "License plate", "Serial number", "Size"],
+  a: [0, 1],
+  x: ["Right. Warehouse is a storage dimension.",
+      "Right. License plate is a storage dimension, used with advanced warehousing.",
+      "Serial number is a tracking dimension.",
+      "Size is a product dimension."] },
+{ id: "q-pim-4", d: "pim", c: "pim-dimgroups",
+  q: "Which setting turns an item into a WMS-enabled item?",
+  o: ["Use warehouse management processes on the storage dimension group",
+      "Stocked product on the item model group",
+      "Batch number active on the tracking dimension group",
+      "Assigning a unit sequence group"],
+  a: [0],
+  x: ["Right. That storage dimension group setting enables advanced warehouse processes for the item.",
+      "Stocked product means the item is tracked in inventory at all. It doesn't enable WMS.",
+      "Batch tracking works with or without WMS.",
+      "WMS items need a unit sequence group, but assigning one doesn't switch WMS on."] },
+{ id: "q-pim-5", d: "pim", c: "pim-imgroup",
+  q: "PedalCo wants the cost of spare parts sold to follow first in, first out. Where is this set?",
+  o: ["Item model group, inventory model FIFO", "Storage dimension group", "Costing version", "Coverage group"],
+  a: [0],
+  x: ["Right. The inventory model on the item model group is the costing method.",
+      "Storage dimension groups set where stock is tracked, not costing.",
+      "Costing versions hold standard or planned prices.",
+      "Coverage groups are for master planning."] },
+{ id: "q-pim-6", d: "pim", c: "pim-imgroup",
+  q: "Stock of carbon frames must never go below zero. What do you change?",
+  o: ["Clear Physical negative inventory on the item model group", "Set a safety stock in item coverage", "Add a reservation hierarchy", "Set the lifecycle state to Active"],
+  a: [0],
+  x: ["Right. With that cleared, issues that would take physical stock below zero are refused.",
+      "Safety stock is a planning target. It doesn't stop negative stock.",
+      "Reservation hierarchies decide which dimensions are reserved. They don't block negatives.",
+      "Lifecycle states control processes, not negative stock."] },
+{ id: "q-pim-7", d: "pim", c: "pim-reshier",
+  q: "Sales must be able to reserve a specific paint batch on the order for a WMS item. How is the reservation hierarchy set?",
+  o: ["Batch number above Location", "Batch number below Location", "Batch number removed from the hierarchy", "License plate above Location"],
+  a: [0],
+  x: ["Right. Dimensions above Location are chosen when the order line is reserved.",
+      "Below Location means the warehouse picks the batch when work is created.",
+      "Batch-tracked WMS items keep batch in the hierarchy.",
+      "License plate stays below location. It doesn't help reserve a batch."] },
+{ id: "q-pim-8", d: "pim", c: "pim-unitseq",
+  q: "What does a unit sequence group do?",
+  o: ["Lists a WMS item's units from smallest to largest, like ea, box, pallet",
+      "Stores how many ea are in a box",
+      "Sets the order in which locations are picked",
+      "Sets the order of lines on a BOM"],
+  a: [0],
+  x: ["Right. Warehouse processes use the sequence to work in different units.",
+      "That's a unit conversion.",
+      "Pick order comes from location setup and work templates.",
+      "BOM line order has nothing to do with unit sequence groups."] },
+{ id: "q-pim-9", d: "pim", c: "pim-bom",
+  q: "A new BOM version for City Bike was approved yesterday, but production orders still use the old BOM. Most likely reason?",
+  o: ["The new version is approved but not active", "BOM lines need separate approval", "The item has no route", "The product isn't released"],
+  a: [0],
+  x: ["Right. Approval allows a version to be used. Activation makes it the default.",
+      "Approval happens on the BOM or BOM version, not line by line.",
+      "Routes are separate from which BOM is picked.",
+      "It was already used on production orders, so it's released."] },
+{ id: "q-pim-10", d: "pim", c: "pim-bom", multi: true,
+  q: "Which TWO describe a Phantom BOM line?",
+  o: ["Its components are pulled into the parent's production order", "It suits a sub-assembly that's never kept in stock", "It creates a purchase order to a subcontractor", "It creates a linked sub production order"],
+  a: [0, 1],
+  x: ["Right. A phantom is exploded, so its components appear on the parent.",
+      "Right. That's the typical use.",
+      "That's the Vendor line type.",
+      "That's the Pegged supply line type."] },
+{ id: "q-pim-11", d: "pim", c: "pim-category",
+  q: "A category hierarchy was built but procurement can't use it. What's missing?",
+  o: ["The hierarchy isn't associated with the procurement category hierarchy role", "The categories have no attributes", "The products aren't released", "The hierarchy has too many levels"],
+  a: [0],
+  x: ["Right. A hierarchy only works in a module once it's linked to that role.",
+      "Attributes are optional.",
+      "Releasing products doesn't link hierarchies to modules.",
+      "There's no such limit at play here."] },
+{ id: "q-pim-12", d: "pim", c: "pim-lifecycle",
+  q: "PedalCo is phasing out 40 models. New POs must stop, remaining stock can still be sold, and master planning should stop proposing supply. Best option?",
+  o: ["A lifecycle state that blocks purchase orders and isn't active for planning", "Tick Stopped on each item's purchase order settings", "Put every vendor on hold", "Delete the products"],
+  a: [0],
+  x: ["Right. One state handles blocked processes and planning for all 40 items.",
+      "Stopped blocks purchasing but doesn't stop planning, and it's set item by item.",
+      "That blocks other items from those vendors too.",
+      "You can't delete products with transactions, and you'd lose history."] },
+{ id: "q-pim-13", d: "pim", c: "pim-attributes",
+  q: "PedalCo wants to record frame material (aluminium or carbon) for website filters. It doesn't need separate stock per material. What should it use?",
+  o: ["A product attribute", "The Style product dimension", "A tracking dimension", "A new storage dimension"],
+  a: [0],
+  x: ["Right. Attributes describe without creating stock-keeping variants.",
+      "A dimension would create variants with separate stock, which isn't needed.",
+      "Tracking dimensions trace stock (batch, serial, owner).",
+      "Storage dimensions are about where stock is."] },
+{ id: "q-pim-14", d: "pim", c: "pim-defaultorder",
+  q: "Tyres must always be bought in multiples of 50. Where is this set?",
+  o: ["Default order settings, Purchase tab, Multiple", "Unit conversions", "Trade agreement journal", "Coverage group"],
+  a: [0],
+  x: ["Right. Orders and planned orders respect the multiple.",
+      "Conversions translate units. They don't round order quantities.",
+      "Trade agreements are prices and discounts.",
+      "Coverage groups decide when to plan, not order multiples."] },
+{ id: "q-pim-15", d: "pim", c: "pim-filtercodes",
+  q: "What's a typical use of product filter codes?",
+  o: ["In location directive queries, to put fragile items in certain locations", "To save personal filters on the released products list", "To group customers for pricing", "To exclude items from master planning"],
+  a: [0],
+  x: ["Right. Warehouse queries can use them to treat tagged items differently.",
+      "Personal list filters are a UI feature, not filter codes.",
+      "That's price/discount groups.",
+      "That's the lifecycle state or coverage code Manual."] },
+{ id: "q-pim-16", d: "pim", c: "pim-costing",
+  q: "Posting a PO for a standard cost item fails: no active cost price. What fixes it?",
+  o: ["Enter a pending price in a standard cost costing version and activate it for the site", "Create a purchase price trade agreement", "Set the base purchase price on the released product", "Run inventory close"],
+  a: [0],
+  x: ["Right. Standard cost items need an active cost price per site.",
+      "Purchase price isn't the cost price.",
+      "Base purchase price is a default purchase price, not the active standard cost.",
+      "Inventory close settles costs. It doesn't create cost prices."] },
+{ id: "q-pim-17", d: "pim", c: "pim-costing",
+  q: "Finance wants to see next year's costs with a 10% steel price rise, without changing today's costs. Which costing version type?",
+  o: ["Planned cost", "Standard cost, activated at once", "Moving average", "A FIFO item model group"],
+  a: [0],
+  x: ["Right. Planned cost versions are for simulations.",
+      "Activating would change current costs.",
+      "Moving average is a costing method, not a version type.",
+      "Item model groups don't simulate costs."] },
+{ id: "q-pim-18", d: "pim", c: "pim-trade",
+  q: "Dealers get 10% off all bikes. Retail customers pay the base price. Best setup?",
+  o: ["A customer price/discount group for dealers, plus a posted line discount trade agreement for that group", "Lower the base sales price by 10%", "A sales agreement per dealer", "A charges code with -10%"],
+  a: [0],
+  x: ["Right. Group-based trade agreements are made for this.",
+      "Retail customers would get the discount too.",
+      "Agreements are commitments, and one per dealer is a lot of upkeep.",
+      "Charges are extra costs, not discounts."] },
+{ id: "q-pim-19", d: "pim", c: "pim-trade", multi: true,
+  q: "Trade agreement lines were entered, but new sales orders don't pick up the prices. Which TWO are likely causes?",
+  o: ["The journal wasn't posted", "That relation isn't enabled on Activate price/discount", "The customer has no credit limit", "The item has no BOM"],
+  a: [0, 1],
+  x: ["Right. Only posted trade agreements are used.",
+      "Right. The search only checks activated combinations.",
+      "Credit limit doesn't affect price lookup.",
+      "BOMs aren't involved in pricing."] },
+{ id: "q-pim-20", d: "pim", c: "pim-trade",
+  q: "Customers who order 10 or more helmets in total, across different helmet lines on one order, get a discount. Which type?",
+  o: ["Multiline discount", "Line discount", "Total discount", "Price agreement"],
+  a: [0],
+  x: ["Right. It adds up quantities across lines in the same multiline discount group.",
+      "Line discounts look at one line only.",
+      "Total discount is on the whole order amount.",
+      "A price agreement sets a unit price."] },
+
+// ===== INVENTORY & ASSETS =====
+{ id: "q-inv-1", d: "inv", c: "inv-journals",
+  q: "Three helmets are given away as marketing samples. The cost should go to an expense account you pick on the line. Which journal?",
+  o: ["Movement journal", "Inventory adjustment journal", "Transfer journal", "Counting journal"],
+  a: [0],
+  x: ["Right. Movement journals let you choose the offset account.",
+      "Adjustment uses the posting profile's offset, not one you choose.",
+      "Transfer moves stock between dimensions. It doesn't take stock out.",
+      "Counting is for count differences."] },
+{ id: "q-inv-2", d: "inv", c: "inv-journals",
+  q: "A count finds 2 more helmets than the system shows. Which journal records this?",
+  o: ["Counting journal", "BOM journal", "Item arrival journal", "Transfer journal"],
+  a: [0],
+  x: ["Right. You enter the counted quantity and post the difference.",
+      "BOM journals report kits as finished.",
+      "Item arrival registers receipts.",
+      "Transfer moves stock between dimensions."] },
+{ id: "q-inv-3", d: "inv", c: "inv-journals",
+  q: "PedalCo builds simple bike kits in the shop. It wants to report kits as finished and use up components in one step, with no production order. Which journal?",
+  o: ["BOM journal", "Movement journal", "Transfer journal", "Inventory adjustment journal"],
+  a: [0],
+  x: ["Right. A BOM journal does both at once.",
+      "You'd need separate lines and wouldn't use the BOM.",
+      "Transfer doesn't change items.",
+      "Adjustment doesn't use the BOM."] },
+{ id: "q-inv-4", d: "inv", c: "inv-transfer",
+  q: "Bikes on a transfer order have been shipped but not received. Where's the stock?",
+  o: ["In the transit warehouse", "Still in the from-warehouse", "Already in the to-warehouse", "Nowhere until receipt"],
+  a: [0],
+  x: ["Right. Shipping moves it to transit.",
+      "Shipping takes it out of the from-warehouse.",
+      "It only arrives when received.",
+      "D365 tracks it in transit."] },
+{ id: "q-inv-5", d: "inv", c: "inv-transfer",
+  q: "PedalCo wants to move stock from warehouse 11 to 12 instantly, with no shipping or transit steps. What should it use?",
+  o: ["Transfer journal", "Transfer order", "Movement journal", "Purchase order"],
+  a: [0],
+  x: ["Right. One step, no transit.",
+      "Transfer orders have ship and receive steps.",
+      "Movement journals take stock in or out against an account.",
+      "POs are for buying."] },
+{ id: "q-inv-6", d: "inv", c: "inv-close",
+  q: "What's the difference between recalculation and inventory close?",
+  o: ["Recalculation adjusts costs but doesn't settle or lock the period. Close settles, adjusts and locks.", "They're the same, but recalculation is faster", "Recalculation locks the period. Close doesn't.", "Close only works for standard cost items"],
+  a: [0],
+  x: ["Right.",
+      "They're different jobs with different effects.",
+      "It's the other way round.",
+      "Close is mainly for FIFO, LIFO and weighted average items."] },
+{ id: "q-inv-7", d: "inv", c: "inv-close",
+  q: "Inventory was closed at 31 October. A user tries to post an adjustment dated 30 October and it fails. Why?",
+  o: ["Nothing can be posted on or before the closing date", "The user lacks journal security", "The item is blocked", "The ledger period is closed"],
+  a: [0],
+  x: ["Right. You'd post in an open period, or cancel the close if it's really needed.",
+      "Security errors look different, and the date is the clue.",
+      "Blocking would stop it on any date.",
+      "Could happen too, but the inventory close date already blocks it."] },
+{ id: "q-inv-8", d: "inv", c: "inv-close",
+  q: "Which costing method doesn't need inventory close to settle costs?",
+  o: ["Moving average", "FIFO", "Weighted average", "LIFO"],
+  a: [0],
+  x: ["Right. Moving average cost is worked out at posting time.",
+      "FIFO needs close to settle issues against receipts.",
+      "Weighted average needs close.",
+      "LIFO needs close."] },
+{ id: "q-inv-9", d: "inv", c: "inv-blocking",
+  q: "Five scratched bikes must not be sold until repaired, but they stay where they are. Quickest standard way?",
+  o: ["Create a manual inventory blocking", "Move them with a movement journal", "Set the item's lifecycle to Obsolete", "Delete the on-hand"],
+  a: [0],
+  x: ["Right. Blocking holds the quantity in place.",
+      "That takes them out of stock in the books.",
+      "That would affect all bikes of that item.",
+      "You can't delete on-hand like that."] },
+{ id: "q-inv-10", d: "inv", c: "inv-blocking",
+  q: "An expired paint batch must not be picked, but you want to keep it in stock for now. What should you use?",
+  o: ["A batch disposition code that blocks picking", "A new tracking dimension group", "A quarantine coverage group", "Delete the batch"],
+  a: [0],
+  x: ["Right. Disposition codes block chosen processes for a batch.",
+      "That changes all items in the group and isn't about one batch.",
+      "There's no such thing.",
+      "You can't delete a batch with stock."] },
+{ id: "q-inv-11", d: "inv", c: "inv-abc",
+  q: "PedalCo wants to count its highest-value items more often. Which feature helps sort items first?",
+  o: ["ABC classification", "Product attributes", "Lifecycle states", "Price groups"],
+  a: [0],
+  x: ["Right. It sorts items into A, B, C by value (or margin, revenue, carrying cost).",
+      "Attributes describe items, they don't rank them.",
+      "Lifecycle states are about processes allowed.",
+      "Price groups are for customer pricing."] },
+{ id: "q-inv-12", d: "inv", c: "inv-quality",
+  q: "Every receipt of frames from Steelworks should automatically trigger a test of 10% of the quantity. What do you set up?",
+  o: ["A quality association for purchase receipt, vendor Steelworks, frames, with a test group sampling 10%", "A nonconformance for each receipt", "A quarantine order template", "A work policy"],
+  a: [0],
+  x: ["Right. The association triggers the quality order automatically.",
+      "Nonconformances record problems after they happen.",
+      "Quarantine moves stock. It doesn't run tests.",
+      "Work policies stop warehouse work being created."] },
+{ id: "q-inv-13", d: "inv", c: "inv-quality",
+  q: "Quality associations exist, but no quality orders are being created. First thing to check?",
+  o: ["Use quality management in Inventory and warehouse management parameters", "The item's barcode", "The coverage group", "The vendor's hold status"],
+  a: [0],
+  x: ["Right. Quality management must be turned on.",
+      "Barcodes don't matter here.",
+      "Coverage groups are for planning.",
+      "Hold status blocks transactions but doesn't stop quality orders."] },
+{ id: "q-inv-14", d: "inv", c: "inv-nonconf",
+  q: "A customer reports a bent wheel. PedalCo wants to record it and track the fix. What should it create?",
+  o: ["A Customer nonconformance", "A sales return only", "A quarantine order", "A maintenance request"],
+  a: [0],
+  x: ["Right. Then approve it and add corrections.",
+      "A return handles the goods, not the quality follow-up.",
+      "Quarantine is for holding stock.",
+      "Maintenance requests are for equipment."] },
+{ id: "q-inv-15", d: "inv", c: "inv-nonconf",
+  q: "A user can't add corrections to a nonconformance. Why?",
+  o: ["It hasn't been approved", "It has no test group", "The item isn't batch-tracked", "Quality orders are turned off"],
+  a: [0],
+  x: ["Right. Approve first.",
+      "Test groups belong to quality orders.",
+      "Tracking dimensions don't matter here.",
+      "Nonconformances work on their own."] },
+{ id: "q-inv-16", d: "inv", c: "inv-quarantine",
+  q: "What are the steps of a quarantine order?",
+  o: ["Start, Report as finished, End", "Create, Release, Ship", "Register, Product receipt, Invoice", "Approve, Activate, Close"],
+  a: [0],
+  x: ["Right. Start moves stock to quarantine. End brings it back.",
+      "That's more like a transfer or sales flow.",
+      "That's purchasing.",
+      "Those words belong to BOM versions."] },
+{ id: "q-inv-17", d: "inv", c: "inv-quarantine",
+  q: "A WMS-enabled item needs to be held for inspection at receipt. What's the recommended approach?",
+  o: ["Use a blocking inventory status (and quality orders if needed)", "Quarantine orders", "A manual blocking on every receipt", "A separate product"],
+  a: [0],
+  x: ["Right. WMS items use inventory status instead of quarantine orders.",
+      "Quarantine orders aren't the tool for WMS items.",
+      "Too manual.",
+      "No need for a new product."] },
+{ id: "q-am-1", d: "inv", c: "am-maint",
+  q: "The paint robot needs servicing every 500 operating hours. What should you set up?",
+  o: ["A counter-based maintenance plan, with counter readings registered", "A time-based plan every 3 months", "A maintenance request each time", "A work order type"],
+  a: [0],
+  x: ["Right. Counter-based plans trigger on usage.",
+      "Time-based ignores actual usage.",
+      "Requests are for unplanned faults.",
+      "A type sets defaults but doesn't plan anything."] },
+{ id: "q-am-2", d: "inv", c: "am-maint",
+  q: "An operator notices a leaking pump. What's the standard flow?",
+  o: ["Maintenance request, approve, create work order", "Create a nonconformance", "Create a quality order", "Post a movement journal"],
+  a: [0],
+  x: ["Right. That's reactive maintenance.",
+      "Nonconformances are for product quality.",
+      "Quality orders test products.",
+      "Journals move stock."] },
+{ id: "q-am-3", d: "inv", c: "am-assets",
+  q: "In Asset management, what's a functional location?",
+  o: ["The place where an asset is installed, in a hierarchy", "The warehouse where spare parts are kept", "The asset's cost center", "The technician's home site"],
+  a: [0],
+  x: ["Right. Assets can move between functional locations.",
+      "That's a warehouse.",
+      "That's a financial dimension.",
+      "Not related."] },
+{ id: "q-am-4", d: "inv", c: "am-workorders",
+  q: "A technician worked 3 hours on a work order. How is that captured?",
+  o: ["Register hours as work order consumption (hour journal)", "Post a movement journal", "Update the asset's lifecycle state", "Edit the maintenance plan"],
+  a: [0],
+  x: ["Right. Hours, items and expenses are posted as consumption.",
+      "Movement journals are for items.",
+      "Lifecycle state doesn't record hours.",
+      "Plans set future work."] },
+{ id: "q-am-5", d: "inv", c: "am-lifecycle",
+  q: "What does an asset lifecycle model do?",
+  o: ["Groups the lifecycle states an asset of that type can move through", "Calculates depreciation", "Schedules work orders", "Sets the asset's price"],
+  a: [0],
+  x: ["Right. You attach it to asset types.",
+      "Depreciation is in Fixed assets.",
+      "Scheduling is separate.",
+      "No."] },
+
+// ===== BUY & SELL =====
+{ id: "q-scp-1", d: "scp", c: "scp-req",
+  q: "Users can't submit purchase requisitions. The error mentions a workflow. Fix?",
+  o: ["Set up and activate a purchase requisition review workflow", "Enable vendor collaboration", "Create a purchase agreement", "Add a procurement category hierarchy role"],
+  a: [0],
+  x: ["Right. Requisitions need an active workflow.",
+      "Not related to submitting requisitions.",
+      "Agreements aren't needed for requisitions.",
+      "Categories matter, but the error is about the workflow."] },
+{ id: "q-scp-2", d: "scp", c: "scp-req",
+  q: "PedalCo wants prices from 3 vendors for a new saddle, to compare and buy from the best. Which document?",
+  o: ["Request for quotation", "Purchase requisition", "Purchase agreement", "Sales quotation"],
+  a: [0],
+  x: ["Right. Send, collect replies, compare, accept.",
+      "Requisitions are internal requests.",
+      "Agreements come after you pick a vendor.",
+      "Sales quotations go to customers."] },
+{ id: "q-scp-3", d: "scp", c: "scp-agree",
+  q: "PedalCo commits to buying 10,000 tyres in 2027 at a fixed price. Each monthly PO should count toward it. What should it use?",
+  o: ["A purchase agreement with release orders", "A trade agreement", "A blanket RFQ", "A delivery schedule"],
+  a: [0],
+  x: ["Right. Agreements track the commitment.",
+      "Trade agreements set price but don't track a commitment.",
+      "Not a D365 concept.",
+      "Delivery schedules split one line."] },
+{ id: "q-scp-4", d: "scp", c: "scp-consign",
+  q: "BoltCo keeps its bolts in PedalCo's warehouse and owns them until used. What has to be set up?",
+  o: ["Owner tracking dimension, consignment replenishment orders and the inventory ownership change journal", "A transit warehouse", "A purchase agreement", "Vendor collaboration only"],
+  a: [0],
+  x: ["Right. That's consignment.",
+      "Transit is for transfer orders.",
+      "An agreement doesn't handle ownership.",
+      "Collaboration helps visibility but isn't consignment."] },
+{ id: "q-scp-5", d: "scp", c: "scp-consign",
+  q: "In consignment, what moves ownership from the vendor to PedalCo?",
+  o: ["The inventory ownership change journal", "Posting the product receipt on the replenishment order", "The vendor's invoice", "A transfer journal"],
+  a: [0],
+  x: ["Right. It creates the PO line that gets received.",
+      "Replenishment orders bring stock in, still vendor-owned.",
+      "The invoice comes after ownership changes.",
+      "A transfer journal doesn't change ownership."] },
+{ id: "q-scp-6", d: "scp", c: "scp-overunder",
+  q: "A vendor delivered 105 tyres on a line of 100. PedalCo wants to accept up to 5% extra. What's needed?",
+  o: ["Allow overdelivery in procurement parameters and set 5% overdelivery on the item", "Edit the PO to 105 every time", "A new trade agreement", "A delivery schedule"],
+  a: [0],
+  x: ["Right. Both are needed.",
+      "Works, but that's the problem the setting solves.",
+      "Not about price.",
+      "That's for splitting dates."] },
+{ id: "q-scp-7", d: "scp", c: "scp-overunder",
+  q: "One PO line for 1,200 tyres should arrive in 3 monthly deliveries. What should you use?",
+  o: ["A delivery schedule", "Three purchase agreements", "Over/under delivery", "A transfer order"],
+  a: [0],
+  x: ["Right. It splits the line by date and quantity.",
+      "Overkill.",
+      "That's tolerance, not dates.",
+      "Transfers are between warehouses."] },
+{ id: "q-scp-8", d: "scp", c: "scp-catpol",
+  q: "Freight should be added automatically to every PO from Asian vendors. What should you use?",
+  o: ["Auto charges with a freight charges code", "A trade agreement", "A purchasing policy", "Landed cost voyages for every PO"],
+  a: [0],
+  x: ["Right.",
+      "Trade agreements are prices and discounts.",
+      "Policies control who can buy what.",
+      "Possible for imports, but auto charges are the simple fit here."] },
+{ id: "q-scp-9", d: "scp", c: "scp-catpol",
+  q: "Office staff should only request items from the 'Office supplies' category. What controls this?",
+  o: ["A purchasing policy with category access rules", "Vendor hold status", "Item model group", "A work policy"],
+  a: [0],
+  x: ["Right.",
+      "Hold blocks vendors, not categories.",
+      "That's inventory rules.",
+      "Work policies are warehouse."] },
+{ id: "q-scp-10", d: "scp", c: "scp-collab",
+  q: "When a vendor accepts a PO in the portal, it should be confirmed with no extra step. Which setting?",
+  o: ["Collaboration activation: Active (PO is auto-confirmed)", "Active (PO isn't auto-confirmed)", "Change management on", "Vendor hold: Never"],
+  a: [0],
+  x: ["Right.",
+      "Then someone at PedalCo confirms after acceptance.",
+      "Change management adds approval, not auto-confirm.",
+      "Hold isn't about the portal."] },
+{ id: "q-scp-11", d: "scp", c: "scp-receive",
+  q: "What's the difference between registration and product receipt?",
+  o: ["Registration records the arrival. Product receipt posts it.", "Same thing", "Product receipt comes first", "Registration posts the invoice"],
+  a: [0],
+  x: ["Right.",
+      "They're separate steps.",
+      "Registration comes first.",
+      "Invoicing is later."] },
+{ id: "q-lc-1", d: "scp", c: "lc-voyage",
+  q: "PedalCo imports frames. It wants freight and duty added to item cost, estimated at shipping and corrected when real bills arrive. What should it use?",
+  o: ["Landed cost voyages with cost type codes", "Charges codes only", "A standard cost revaluation", "Transportation management freight bills"],
+  a: [0],
+  x: ["Right. Estimate, then compare actuals within tolerances.",
+      "Charges are simpler and don't track voyages, containers or estimates.",
+      "That changes standard cost, not import costs.",
+      "TMS freight is for carrier bills, not duty."] },
+{ id: "q-lc-2", d: "scp", c: "lc-voyage",
+  q: "4% duty should be added automatically to every voyage line for frames from Taiwan. Which feature?",
+  o: ["Auto costs", "Journey templates", "Voyage statuses", "Tracking control center"],
+  a: [0],
+  x: ["Right.",
+      "Journey templates define legs.",
+      "Statuses track progress.",
+      "That's for tracking, not costs."] },
+{ id: "q-lc-3", d: "scp", c: "lc-voyage",
+  q: "Which describes a folio in landed cost?",
+  o: ["A group of PO or transfer order lines on a voyage", "A shipping container", "A leg of the journey", "A cost type"],
+  a: [0],
+  x: ["Right.",
+      "Containers are separate.",
+      "Legs come from journey templates.",
+      "No."] },
+{ id: "q-sal-1", d: "scp", c: "sales-flow",
+  q: "A shop returns a damaged bike. PedalCo receives it, scraps it and credits the shop. Which disposition?",
+  o: ["Scrap", "Credit only", "Return to customer", "Replace and credit"],
+  a: [0],
+  x: ["Right. Received, scrapped, credited.",
+      "Credit only means the item doesn't come back.",
+      "That sends it back.",
+      "That sends a replacement too."] },
+{ id: "q-sal-2", d: "scp", c: "sales-flow",
+  q: "Stock should be reserved as soon as a sales line is created. Which reservation setting?",
+  o: ["Automatic", "Manual", "Explosion", "None"],
+  a: [0],
+  x: ["Right.",
+      "Manual waits for the user.",
+      "Explosion reserves through the BOM structure.",
+      "Not an option."] },
+{ id: "q-sal-3", d: "scp", c: "sales-agree",
+  q: "When is sales commission posted?",
+  o: ["When the sales invoice is posted", "When the order is confirmed", "When the order is picked", "Monthly batch only"],
+  a: [0],
+  x: ["Right.",
+      "Too early.",
+      "Too early.",
+      "No."] },
+{ id: "q-sal-4", d: "scp", c: "sales-ic",
+  q: "PedalCo US buys from PedalCo Manufacturing (same D365). A PO in the US company should create the sales order in Manufacturing automatically. What's needed?",
+  o: ["An intercompany trading relationship between the vendor and customer accounts", "Vendor collaboration", "A transfer order", "A sales agreement"],
+  a: [0],
+  x: ["Right.",
+      "That's for external vendors.",
+      "Transfer orders work inside one company.",
+      "Doesn't create the order."] },
+{ id: "q-sal-5", d: "scp", c: "sales-atp",
+  q: "Sales wants delivery dates that take factory capacity into account. Which delivery date control?",
+  o: ["CTP", "ATP", "Sales lead time", "None"],
+  a: [0],
+  x: ["Right. CTP uses master planning, including capacity.",
+      "ATP looks at supply and demand, not capacity.",
+      "Just a fixed lead time.",
+      "No check."] },
+{ id: "q-sal-6", d: "scp", c: "sales-atp",
+  q: "What does ATP look at?",
+  o: ["On-hand plus planned receipts and issues within the ATP time fence", "Production capacity", "Only on-hand today", "Vendor lead time only"],
+  a: [0],
+  x: ["Right.",
+      "That's CTP.",
+      "ATP includes future supply and demand.",
+      "No."] },
+{ id: "q-sal-7", d: "scp", c: "sales-rebate",
+  q: "A dealer gets 2% back if they buy over 1,000 bikes a year. Where is this set up?",
+  o: ["Rebate management deal", "Line discount trade agreement", "Commission calculation", "Charges code"],
+  a: [0],
+  x: ["Right.",
+      "That's an immediate discount on each line.",
+      "Commissions are for sales reps.",
+      "Charges add costs."] },
+{ id: "q-scp-12", d: "scp", c: "scp-vendors",
+  q: "Vendor Steelworks is in a billing dispute. PedalCo still wants to send POs but block invoices. Which hold status?",
+  o: ["Invoice", "All", "Payment", "Never"],
+  a: [0],
+  x: ["Right.",
+      "Blocks everything.",
+      "Only blocks payments.",
+      "Never means the vendor can't be put on hold."] },
+
+// ===== WAREHOUSE & TRANSPORT =====
+{ id: "q-wms-1", d: "wms", c: "wms-directives",
+  q: "Full pallets of tyres should go to the bulk zone and smaller quantities to the pick zone. What do you configure?",
+  o: ["A put location directive with lines split by quantity or unit, each with actions for its zone", "Two work templates", "A wave template", "Two warehouses"],
+  a: [0],
+  x: ["Right.",
+      "Work templates make work lines but don't pick locations.",
+      "Waves are for outbound.",
+      "Overkill."] },
+{ id: "q-wms-2", d: "wms", c: "wms-directives",
+  q: "Put-away keeps choosing the wrong location even though a correct directive exists. What should you check first?",
+  o: ["The sequence of directives: an earlier one is matching first", "The unit sequence group", "The wave template", "The item's barcode"],
+  a: [0],
+  x: ["Right. First match wins.",
+      "Possible but less likely.",
+      "Not used for put-away.",
+      "No."] },
+{ id: "q-wms-3", d: "wms", c: "wms-structure",
+  q: "Which setup decides whether a location tracks license plates and allows mixed items?",
+  o: ["Location profile", "Location format", "Zone", "Location type"],
+  a: [0],
+  x: ["Right.",
+      "Format is the naming pattern.",
+      "Zones group locations.",
+      "Types mark special locations like staging."] },
+{ id: "q-wms-4", d: "wms", c: "wms-structure",
+  q: "Locations should be named like A-01-03-B (aisle-rack-shelf-bin). What sets this?",
+  o: ["Location format", "Location profile", "Zone group", "Warehouse type"],
+  a: [0],
+  x: ["Right.",
+      "Profile is behaviour.",
+      "No.",
+      "No."] },
+{ id: "q-wms-5", d: "wms", c: "wms-templates",
+  q: "Transfer receipts at the small city shop should not create warehouse work. What do you use?",
+  o: ["A work policy", "A work template with no lines", "A location directive", "A blocking inventory status"],
+  a: [0],
+  x: ["Right. Work policies stop work being created.",
+      "Not the supported way.",
+      "Directives choose locations.",
+      "Status doesn't stop work."] },
+{ id: "q-wms-6", d: "wms", c: "wms-templates",
+  q: "Each pick work should have at most 10 lines. Where?",
+  o: ["Work header breaks on the work template", "Load template", "Wave template", "Location profile"],
+  a: [0],
+  x: ["Right.",
+      "Load templates are about weight and volume.",
+      "Waves group shipments.",
+      "No."] },
+{ id: "q-wms-7", d: "wms", c: "wms-templates",
+  q: "What does a load template define?",
+  o: ["Equipment limits like max weight and volume", "Which work lines are created", "Where to put goods", "How waves are processed"],
+  a: [0],
+  x: ["Right.",
+      "Work template.",
+      "Location directive.",
+      "Wave template."] },
+{ id: "q-wms-8", d: "wms", c: "wms-inout",
+  q: "Stock with inventory status Damaged must not be reserved for orders. What makes that happen?",
+  o: ["Marking Damaged as a blocking inventory status", "A location directive", "A work policy", "Removing the license plate"],
+  a: [0],
+  x: ["Right.",
+      "No.",
+      "No.",
+      "No."] },
+{ id: "q-wms-9", d: "wms", c: "wms-replen",
+  q: "The helmet pick location should be refilled from bulk whenever it drops below 10. Which replenishment?",
+  o: ["Min/max replenishment", "Wave demand replenishment", "Cross docking", "Cycle counting"],
+  a: [0],
+  x: ["Right.",
+      "Wave demand only fills what a wave needs.",
+      "Cross docking is inbound to outbound.",
+      "Counting checks stock, doesn't move it."] },
+{ id: "q-wms-10", d: "wms", c: "wms-replen",
+  q: "A cycle count difference is bigger than the allowed tolerance. What happens?",
+  o: ["It goes to Cycle count work pending review for approval", "It posts automatically", "The location is deleted", "A quality order is created"],
+  a: [0],
+  x: ["Right.",
+      "Only within tolerance.",
+      "No.",
+      "No."] },
+{ id: "q-wms-11", d: "wms", c: "wms-replen",
+  q: "Received goods should go straight to outbound staging for waiting orders, skipping storage. What's this?",
+  o: ["Cross docking", "Replenishment", "Wave picking", "Transfer journal"],
+  a: [0],
+  x: ["Right.",
+      "No.",
+      "No.",
+      "No."] },
+{ id: "q-wms-12", d: "wms", c: "wms-mobile",
+  q: "A worker wants to check a license plate's contents in the middle of a picking task and then return to the pick. What enables this?",
+  o: ["A detour set up on Mobile device steps", "A new menu", "A work policy", "A location directive"],
+  a: [0],
+  x: ["Right.",
+      "A menu doesn't let you jump and return.",
+      "No.",
+      "No."] },
+{ id: "q-wms-13", d: "wms", c: "wms-mobile",
+  q: "License plate inquiry is which kind of mobile device menu item?",
+  o: ["Indirect", "Work created by user", "Existing work", "Wave"],
+  a: [0],
+  x: ["Right. Inquiries are indirect.",
+      "Like PO receiving.",
+      "Like sales picking.",
+      "Not a menu item mode."] },
+{ id: "q-wms-14", d: "wms", c: "wms-labels",
+  q: "Containerization in a wave decides which box each item goes in. What does it rely on?",
+  o: ["Container build templates, container types and item physical dimensions", "Location formats", "Reservation hierarchy", "Rate engines"],
+  a: [0],
+  x: ["Right.",
+      "No.",
+      "No.",
+      "No."] },
+{ id: "q-tms-1", d: "wms", c: "tms-rates",
+  q: "What's the job of a route guide?",
+  o: ["Rules that choose which route plan to use", "Calculates the freight rate", "Stores rate tables", "Books dock slots"],
+  a: [0],
+  x: ["Right.",
+      "Rate engine.",
+      "Rate master.",
+      "Dock appointment scheduling."] },
+{ id: "q-tms-2", d: "wms", c: "tms-freight",
+  q: "Carrier invoices within 5% of expected cost should match automatically. Where is the tolerance set?",
+  o: ["Audit master", "Rate master", "Route plan", "Charges code"],
+  a: [0],
+  x: ["Right.",
+      "Holds rates.",
+      "No.",
+      "No."] },
+{ id: "q-tms-3", d: "wms", c: "wms-loadplan",
+  q: "Planners want to group sales lines into truck loads and release them to the warehouse in one place. Which page?",
+  o: ["Load planning workbench", "Release to warehouse only", "Wave template", "Rating and routing workbench"],
+  a: [0],
+  x: ["Right.",
+      "That doesn't build loads.",
+      "Setup, not planning.",
+      "That's for rate shopping."] },
+
+// ===== PLANNING =====
+{ id: "q-mp-1", d: "mp", c: "mp-coverage",
+  q: "All demand in a 7-day window should be covered by one planned order. Which coverage code?",
+  o: ["Period, coverage period 7 days", "Requirement", "Min./Max.", "Manual"],
+  a: [0],
+  x: ["Right.",
+      "One planned order per requirement.",
+      "Refills to max when below min.",
+      "No planned orders."] },
+{ id: "q-mp-2", d: "mp", c: "mp-coverage",
+  q: "Master planning should never create planned orders for desk pens. Which coverage code?",
+  o: ["Manual", "Period", "Requirement", "Min./Max. with min 0"],
+  a: [0],
+  x: ["Right.",
+      "Still plans.",
+      "Still plans.",
+      "Still plans when stock dips."] },
+{ id: "q-mp-3", d: "mp", c: "mp-coverage",
+  q: "Helmet stock should stay between 50 and 200. Setup?",
+  o: ["Min./Max. coverage code with item coverage min 50, max 200", "Period with 50 days", "Requirement with safety stock 200", "Manual"],
+  a: [0],
+  x: ["Right.",
+      "No.",
+      "Doesn't refill to a max.",
+      "No planning."] },
+{ id: "q-mp-4", d: "mp", c: "mp-posneg",
+  q: "A sales order is due 19 Sept. An existing PO arrives 20 Sept. Negative days = 0. What does master planning do?",
+  o: ["Creates a new planned purchase order", "Uses the existing PO and shows a delay", "Moves the sales order", "Nothing"],
+  a: [0],
+  x: ["Right. With 0 negative days, late supply can't cover it.",
+      "That's what happens with negative days of 1 or more.",
+      "Planning doesn't move sales orders.",
+      "No."] },
+{ id: "q-mp-5", d: "mp", c: "mp-posneg",
+  q: "Positive days are set to 30. On-hand stock is available today and a sales order is due in 90 days. What happens?",
+  o: ["A new planned order is created, because today's stock is outside the 30-day window before the due date", "Today's stock covers the order", "The sales order is cancelled", "Nothing, positive days only affect forecasts"],
+  a: [0],
+  x: ["Right. Positive days count back from the due date. Supply earlier than that window isn't used.",
+      "That happens only if positive days are more than 90.",
+      "No.",
+      "No."] },
+{ id: "q-mp-6", d: "mp", c: "mp-fences",
+  q: "Planned purchase orders within the next 7 days should become firm automatically. Which time fence?",
+  o: ["Firming time fence", "Freeze time fence", "Coverage time fence", "Action message time fence"],
+  a: [0],
+  x: ["Right.",
+      "Freeze stops changes but doesn't firm.",
+      "Coverage is how far ahead planning looks.",
+      "That limits action messages."] },
+{ id: "q-mp-7", d: "mp", c: "mp-fences",
+  q: "The coverage time fence is 100 days on the coverage group and 60 days on the master plan. Which applies?",
+  o: ["60, the master plan overrides", "100", "The larger one", "Both, added together"],
+  a: [0],
+  x: ["Right.",
+      "No.",
+      "No.",
+      "No."] },
+{ id: "q-mp-8", d: "mp", c: "mp-plans",
+  q: "What does firming a planned order do?",
+  o: ["Turns it into a real order (purchase, transfer or production)", "Deletes it", "Locks the master plan", "Sends it to the vendor portal right away"],
+  a: [0],
+  x: ["Right.",
+      "No.",
+      "No.",
+      "Not by itself."] },
+{ id: "q-mp-9", d: "mp", c: "mp-plans",
+  q: "Which plan does CTP use?",
+  o: ["The dynamic master plan", "The static master plan", "The forecast plan", "No plan"],
+  a: [0],
+  x: ["Right.",
+      "Static is the main stored plan.",
+      "No.",
+      "No."] },
+{ id: "q-mp-10", d: "mp", c: "mp-safety",
+  q: "Frame inspection takes a day after receipt before frames can be used. Which margin fits?",
+  o: ["Receipt margin of 1 day", "Issue margin of 1 day", "Reorder margin of 1 day", "Negative days of 1"],
+  a: [0],
+  x: ["Right. It delays when receipts count as available.",
+      "Issue margin moves the requirement earlier. Close, but it's about the demand side.",
+      "Reorder margin adds to purchase lead time.",
+      "Different concept."] },
+{ id: "q-mp-11", d: "mp", c: "mp-safety",
+  q: "PedalCo wants minimum stock proposals based on last year's usage. What should it use?",
+  o: ["Safety stock journal", "ABC classification", "Inventory close", "Supply schedule"],
+  a: [0],
+  x: ["Right. Post it to update item coverage minimums.",
+      "Ranks items, doesn't set minimums.",
+      "No.",
+      "Shows supply and demand, doesn't propose minimums."] },
+{ id: "q-mp-12", d: "mp", c: "mp-plans",
+  q: "Planners want to see supply and demand in weekly buckets and edit planned orders there. Which page, and what sets the buckets?",
+  o: ["Supply schedule, using a period template", "Planned orders, using a coverage group", "Net requirements, using a calendar", "Load planning workbench"],
+  a: [0],
+  x: ["Right.",
+      "No buckets there.",
+      "Not bucketed by period templates.",
+      "Transport."] }
+];
+// ---- Hands-on labs: do these in a TEST or demo company, never production ----
+const LABS = [
+{ id: "lab-variants", d: "pim", t: "Build a bike with variants", mins: 25, cards: ["pim-products", "pim-dimgroups"],
+  goal: "See how a product master, dimensions and variants fit together.",
+  steps: [
+    "Open Product information management > Products > All products and product masters. Create a product master called 'PedalCo City Bike' with a product dimension group that has Color and Size.",
+    "Open Product dimensions and add two colours and three sizes.",
+    "Open Product variants and use Variant suggestions to create all six combinations.",
+    "Release the product master and only two of the variants to your company.",
+    "Open Released products, find the bike and look at Released product variants. Notice which variants are missing.",
+    "Try creating a sales order line for an unreleased variant. Note what happens."],
+  check: ["Explain in one sentence why a product master is used here instead of a product.", "Which settings did you have to fill in only after releasing?"] },
+{ id: "lab-cost", d: "pim", t: "Standard cost vs FIFO", mins: 30, cards: ["pim-imgroup", "pim-costing"],
+  goal: "Feel the difference between a standard cost item and a FIFO item.",
+  steps: [
+    "Find (or create) two item model groups: one with inventory model Standard cost, one with FIFO.",
+    "Create two released products, one in each group.",
+    "Try to post a movement journal receipt for the standard cost item before it has a cost price. Read the error.",
+    "Open Cost management > Inventory accounting > Costing versions. Create a Standard cost version, add a pending price for the item and site, then activate it.",
+    "Post the same receipt again. Then receive the FIFO item twice at two different costs.",
+    "Sell one unit of each and look at the cost on the inventory transaction."],
+  check: ["Why did the standard cost item need an active price but the FIFO item didn't?", "When would the FIFO item's issue cost become final?"] },
+{ id: "lab-bom", d: "pim", t: "BOM versions: approve vs activate", mins: 20, cards: ["pim-bom", "inv-journals"],
+  goal: "See what approval and activation each do.",
+  steps: [
+    "On a released product you can build, open Engineer > BOM versions and create a new BOM with 2 or 3 component lines.",
+    "Approve the version but don't activate it. Create a BOM journal and check which BOM it uses.",
+    "Activate the version and create a new BOM journal. Compare.",
+    "Post the BOM journal and check the on-hand of the finished item and the components."],
+  check: ["What changed when you activated?", "When would you use a BOM journal instead of a production order?"] },
+{ id: "lab-trade", d: "pim", t: "Dealer discount with trade agreements", mins: 20, cards: ["pim-trade"],
+  goal: "Set up group pricing and prove it works on an order.",
+  steps: [
+    "Create a customer price/discount group for line discounts called DEALERS and assign it to one customer.",
+    "Open Sales and marketing > Prices and discounts > Trade agreement journals. Add a line discount of 10% for the group on one item. Don't post yet.",
+    "Create a sales order for that customer and item. Check the discount (it shouldn't be there).",
+    "Post the journal. Create a new sales line and check again.",
+    "Open Activate price/discount and find the setting that made this relation work."],
+  check: ["What two things must be true for a trade agreement to apply?", "How would a multiline discount differ here?"] },
+{ id: "lab-journals", d: "inv", t: "Movement vs adjustment journals", mins: 15, cards: ["inv-journals"],
+  goal: "See where the offset account comes from.",
+  steps: [
+    "Post a movement journal that removes 1 unit, choosing an offset account yourself.",
+    "Post an inventory adjustment journal that removes 1 unit of the same item.",
+    "Open the voucher for each (Inquiries > Voucher) and compare the ledger accounts."],
+  check: ["Where did the adjustment journal get its offset account?"] },
+{ id: "lab-transfer", d: "inv", t: "Transfer order end to end", mins: 20, cards: ["inv-transfer"],
+  goal: "Watch stock move through transit.",
+  steps: [
+    "Create a transfer order between two warehouses that aren't WMS-enabled (keeps it simple).",
+    "Ship it. Check on-hand for the item by warehouse. Find the transit warehouse quantity.",
+    "Receive it and check on-hand again."],
+  check: ["Where was the stock between ship and receive?", "When would a transfer journal be enough?"] },
+{ id: "lab-quality", d: "inv", t: "Automatic quality order on receipt", mins: 30, cards: ["inv-quality", "inv-nonconf"],
+  goal: "Make a receipt trigger an inspection.",
+  steps: [
+    "Check that Use quality management is on in Inventory and warehouse management parameters.",
+    "Look at existing tests and test groups, or create one test group with one test.",
+    "Create a quality association: reference type Purchase, your item, your test group, event at product receipt.",
+    "Create and receive a purchase order for that item.",
+    "Find the quality order, enter results and validate it. Then create a nonconformance from it."],
+  check: ["What would have happened if the parameter was off?", "What did the association decide?"] },
+{ id: "lab-asset", d: "inv", t: "From fault to work order", mins: 25, cards: ["am-assets", "am-maint", "am-workorders"],
+  goal: "Walk the reactive maintenance flow.",
+  steps: [
+    "Open Asset management > Assets > All assets. Open an asset and note its asset type and functional location.",
+    "Create a maintenance request for it describing a fault.",
+    "Move the request through its states and create a work order from it.",
+    "Schedule the work order, then register 1 hour of consumption.",
+    "Look at the maintenance plans for the asset type and open the maintenance schedule."],
+  check: ["What's the difference between this flow and preventive maintenance?"] },
+{ id: "lab-p2p", d: "scp", t: "Procure to pay", mins: 30, cards: ["scp-req", "scp-receive", "scp-wf"],
+  goal: "Run the full buying cycle once.",
+  steps: [
+    "Create a purchase requisition for one item. Submit it (note the workflow).",
+    "Once approved, release it to a purchase order.",
+    "Confirm the PO. Post a product receipt. Check on-hand.",
+    "Post the vendor invoice and look at the PO status after each step.",
+    "Optional: send an RFQ for the same item to two vendors and accept one reply."],
+  check: ["What does the product receipt post that registration doesn't?", "Where would change management add a step?"] },
+{ id: "lab-atp", d: "scp", t: "ATP vs CTP on a sales line", mins: 20, cards: ["sales-atp"],
+  goal: "See different delivery dates for the same order.",
+  steps: [
+    "Create a sales order line for an item with little stock.",
+    "Set Delivery date control to Sales lead time, then ATP, then CTP. Note the dates.",
+    "Open Available ship and receipt dates from the line and compare."],
+  check: ["Why might CTP give a later date than ATP?"] },
+{ id: "lab-wms-in", d: "wms", t: "Inbound with the mobile app", mins: 35, cards: ["wms-inout", "wms-directives", "wms-mobile"],
+  goal: "Receive a PO and see which location directive chose the location.",
+  steps: [
+    "Create a PO for a WMS item in a WMS warehouse.",
+    "Open the Warehouse Management mobile app (or its web version if your environment has it) and log in as a worker for that warehouse.",
+    "Use the purchase order receiving menu item to register the receipt.",
+    "Open Warehouse management > Work > All work. Find the put-away work.",
+    "Open Warehouse management > Setup > Location directives for Purchase orders and work out which directive and action picked the put location.",
+    "Complete the put-away in the app."],
+  check: ["Which directive line was used and why?", "What would change if you moved that directive to a lower sequence?"] },
+{ id: "lab-wms-out", d: "wms", t: "Outbound: release, wave, pick, ship", mins: 35, cards: ["wms-inout", "wms-templates"],
+  goal: "Run a sales order through the warehouse.",
+  steps: [
+    "Create and confirm a sales order for a WMS item.",
+    "Release it to the warehouse.",
+    "Find the wave (Outbound waves > Shipment waves > All waves). Check which wave template was used.",
+    "Pick the work in the mobile app.",
+    "Ship confirm the load or shipment, then post the packing slip."],
+  check: ["Which wave steps ran?", "Which work template created the pick work?"] },
+{ id: "lab-mp", d: "mp", t: "Run master planning and tune it", mins: 35, cards: ["mp-coverage", "mp-posneg", "mp-plans"],
+  goal: "See how coverage settings change planned orders.",
+  steps: [
+    "Pick an item and check its coverage group and item coverage.",
+    "Create a sales order for it a few days out.",
+    "Run master planning (static plan). Look at the planned orders for the item.",
+    "Change the coverage code (for example Requirement to Period) or the negative days, run again and compare.",
+    "Firm one planned purchase order and find the PO it created."],
+  check: ["What changed when you changed the coverage code?", "Explain negative days to a friend in one sentence."] },
+{ id: "lab-life", d: "pim", t: "Block purchasing with a lifecycle state", mins: 15, cards: ["pim-lifecycle"],
+  goal: "See a lifecycle state block a process.",
+  steps: [
+    "Open Product information management > Setup > Product lifecycle state. Create a state that blocks purchase orders and isn't active for planning.",
+    "Assign it to a released product.",
+    "Try creating a PO line for it. Then try a sales order line."],
+  check: ["What did the state block and what did it allow?"] }
+];
+// ===== MB-330 Field Kit app =====
+(function () {
+const KEY = "mb330fk.v1";
+const DAY = 86400000;
+const INTERVALS = [0, 1, 3, 7, 14, 30]; // days for box 0..5
+const VIDEO = "https://www.youtube.com/watch?v=RkcJlfqlng8";
+const $ = (s, el = document) => el.querySelector(s);
+const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const dom = (id) => DOMAINS.find((d) => d.id === id);
+const card = (id) => CARDS.find((c) => c.id === id);
+const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
+const fmtTime = (s) => { s = Math.max(0, Math.round(s)); const m = Math.floor(s / 60); return `${m}:${String(s % 60).padStart(2, "0")}`; };
+const hms = (t) => { const h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), x = String(t % 60).padStart(2, "0"); return h ? `${h}:${String(m).padStart(2, "0")}:${x}` : `${m}:${x}`; };
+const ytLink = (v) => `${VIDEO}&t=${v[0]}s`;
+const learnLink = (t) => `https://learn.microsoft.com/en-us/search/?terms=${encodeURIComponent(t.replace(/\(.*?\)/g, "") + " Dynamics 365 Supply Chain Management")}`;
+
+// ---------- state ----------
+const blank = () => ({ name: "", srs: {}, labs: {}, notes: {}, exams: [], days: [] });
+let S = blank();
+try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(blank(), JSON.parse(raw)); } catch (e) {}
+function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function touchDay() { const d = new Date().toISOString().slice(0, 10); if (!S.days.includes(d)) { S.days.push(d); if (S.days.length > 400) S.days.shift(); } }
+function streak() {
+  let n = 0; const set = new Set(S.days); const t = new Date();
+  for (let i = 0; i < 400; i++) { const d = new Date(t - i * DAY).toISOString().slice(0, 10); if (set.has(d)) n++; else if (i > 0) break; }
+  return n;
+}
+const rec = (k) => S.srs[k];
+function grade(k, correct, guessed) {
+  const r = S.srs[k] || { box: 0, due: 0, right: 0, wrong: 0 };
+  if (correct && !guessed) { r.box = Math.min(r.box + 1, 5); r.right++; }
+  else if (correct && guessed) { r.box = Math.max(r.box, 1); r.right++; }
+  else { r.box = 1; r.wrong++; }
+  const days = correct && !guessed ? INTERVALS[r.box] : (correct ? 1 : 0);
+  r.due = Date.now() + days * DAY - 60000; r.last = Date.now();
+  S.srs[k] = r; touchDay(); save();
+}
+const isDue = (k) => { const r = rec(k); return r && r.due <= Date.now(); };
+function mastery(domId) {
+  const keys = QUESTIONS.filter((q) => !domId || q.d === domId).map((q) => "q:" + q.id)
+    .concat(CARDS.filter((c) => !domId || c.d === domId).map((c) => "c:" + c.id));
+  if (!keys.length) return 0;
+  return keys.reduce((s, k) => s + Math.min(rec(k)?.box || 0, 5), 0) / (keys.length * 5);
+}
+const dueCount = () => QUESTIONS.filter((q) => isDue("q:" + q.id)).length + CARDS.filter((c) => isDue("c:" + c.id)).length;
+
+// ---------- routing ----------
+const ROUTES = ["home", "learn", "practice", "exam", "labs", "progress"];
+let view = "home"; let lastView = null;
+const ui = { dom: "all", ldom: "pim", cardId: null, tab: "ex", mobileReader: false, search: "", recall: false, open: null };
+let session = null; // practice session
+let flash = null;   // recall session
+let exam = null;    // mock exam
+let timerId = null;
+
+function go(v) { if (location.hash !== "#" + v) location.hash = v; else render(); }
+window.addEventListener("hashchange", () => render());
+function current() { const h = location.hash.replace("#", ""); return ROUTES.includes(h) ? h : "home"; }
+
+function nav() {
+  const due = dueCount();
+  const items = [["home", "Today"], ["learn", "Learn"], ["practice", "Practice"], ["exam", "Mock exam"], ["labs", "Labs"], ["progress", "Progress"]];
+  $("#tabs").innerHTML = items.map(([id, label]) =>
+    `<a href="#${id}" ${view === id ? 'aria-current="page"' : ""}>${label}${id === "practice" && due ? `<span class="n">${due}</span>` : ""}</a>`).join("");
+}
+
+function render() {
+  view = current();
+  if (view !== "exam" && timerId) { /* keep exam timer running in background */ }
+  nav();
+  const m = $("#main");
+  m.innerHTML = ({ home: vHome, learn: vLearn, practice: vPractice, exam: vExam, labs: vLabs, progress: vProgress }[view])();
+  if (view !== lastView || !["learn"].includes(view)) window.scrollTo(0, 0);
+  lastView = view;
+}
+
+// ---------- shared bits ----------
+function domChips(sel) {
+  return `<div class="filters" role="group" aria-label="Filter by exam area">
+    <button class="chip" data-act="dom" data-v="all" aria-pressed="${sel === "all"}">All areas</button>
+    ${DOMAINS.map((d) => `<button class="chip" data-act="dom" data-v="${d.id}" aria-pressed="${sel === d.id}">${d.short}</button>`).join("")}
+  </div>`;
+}
+function dots(k) { const b = rec(k)?.box || 0; return `<span class="dots" title="Memory strength ${b} of 5">${[1, 2, 3, 4, 5].map((i) => `<i class="${i <= b ? "on" : ""}"></i>`).join("")}</span>`; }
+function cardBody(c) {
+  return `<div class="cbody">
+    ${c.low ? `<p class="note">Claude is less sure about parts of this card. Check it against Microsoft Learn or your environment.</p>` : ""}
+    <div class="field"><span class="eyebrow">In plain words</span><p>${c.plain}</p></div>
+    <div class="field"><span class="eyebrow">Why a consultant cares</span><p>${c.why}</p></div>
+    <div class="field"><span class="eyebrow">PedalCo example</span><p>${c.ex}</p></div>
+    <div class="field"><span class="eyebrow">Where in D365</span><div class="where">${c.where}</div></div>
+    <div class="trap"><span class="eyebrow">Exam trap</span><p>${c.trap}</p></div>
+    <div class="row small">
+      <a href="${learnLink(c.t)}" target="_blank" rel="noopener">Check on Microsoft Learn</a>
+      ${c.v ? `<span class="muted">·</span><a href="${ytLink(c.v)}" target="_blank" rel="noopener">Watch: ${esc(c.v[1])} (${hms(c.v[0])})</a>` : ""}
+      <span class="muted">·</span><button class="btn ghost small" data-act="practice-card" data-v="${c.id}">Practise this topic</button>
+    </div>
+  </div>`;
+}
+function openCard(id) {
+  const c = card(id); if (!c) return;
+  const ov = document.createElement("div"); ov.className = "ov"; ov.setAttribute("role", "dialog"); ov.setAttribute("aria-modal", "true");
+  ov.innerHTML = `<div class="card"><div class="ovhead"><h3>${esc(c.t)}</h3><button class="btn ghost" data-act="close-ov">Close</button></div>${cardBody(c)}</div>`;
+  ov.addEventListener("click", (e) => { if (e.target === ov) ov.remove(); });
+  document.body.appendChild(ov); $(".ov [data-act=close-ov]").focus();
+}
+
+// ---------- HOME ----------
+function vHome() {
+  const due = dueCount();
+  const seen = Object.keys(S.srs).length;
+  const total = QUESTIONS.length + CARDS.length;
+  const hi = S.name ? `Hi ${esc(S.name)}.` : "";
+  return `
+  <section class="today">
+    <div class="stack">
+      <span class="eyebrow">Today</span>
+      <div class="row" style="gap:18px;align-items:flex-end">
+        <span class="big">${due || (seen < total ? Math.min(10, total - seen) : 0)}</span>
+        <p>${hi} ${due ? `${due === 1 ? "item is" : "items are"} due for review. Reviewing right before you'd forget is what makes it stick.` : seen < total ? "new items are ready. Nothing is due yet." : "Nothing due. Try a mock exam or a lab."}</p>
+      </div>
+    </div>
+    <div class="row"><button class="btn primary" data-act="start-mixed">Start a 10-question session</button></div>
+  </section>
+
+  <section class="stack">
+    <h2>How to use this</h2>
+    <div class="loop">
+      <div><span class="k">1 · Learn</span><b>Read one card, then explain it</b><span class="small muted">Turn on Recall mode and say the answer out loud before you reveal it.</span></div>
+      <div><span class="k">2 · Practise</span><b>Answer scenario questions</b><span class="small muted">Tick "I'm guessing" when you are. Wrong and guessed items come back sooner.</span></div>
+      <div><span class="k">3 · Do</span><b>Try it in D365</b><span class="small muted">Each lab walks a real process in your test environment. That's what makes it usable at work.</span></div>
+    </div>
+  </section>
+
+  <section class="stack">
+    <div class="row" style="justify-content:space-between"><h2>Exam areas</h2><span class="small muted">Weights from Microsoft's skills outline, Oct 21 2026</span></div>
+    <div class="domains">
+      ${DOMAINS.map((d) => {
+        const m = Math.round(mastery(d.id) * 100);
+        const nq = QUESTIONS.filter((q) => q.d === d.id).length, nc = CARDS.filter((c) => c.d === d.id).length, nl = LABS.filter((l) => l.d === d.id).length;
+        return `<div class="dom">
+          <div class="stack" style="gap:2px"><h3>${d.name}</h3><span class="meta">${d.weight} of the exam · ${nc} cards · ${nq} questions · ${nl} labs</span></div>
+          <div><div class="bar"><i style="width:${m}%"></i></div><div class="barlab">${m}% remembered</div></div>
+          <div class="row"><button class="btn" data-act="learn-dom" data-v="${d.id}">Learn</button><button class="btn" data-act="practice-dom" data-v="${d.id}">Practise</button></div>
+        </div>`;
+      }).join("")}
+    </div>
+  </section>
+
+  <p class="note">Topics and weights come from Microsoft's official MB-330 study guide. The explanations, questions and labs were written by Claude from general knowledge of Microsoft Learn and D365, not copied from Microsoft or from real exams. Cards marked "check this" are the ones to verify first.</p>`;
+}
+
+// ---------- LEARN ----------
+function vLearn() {
+  if (flash) return vFlash();
+  const q = ui.search.trim().toLowerCase();
+  const match = (c) => !q || (c.t + c.plain + c.trap + c.ex).toLowerCase().includes(q);
+  const dcards = CARDS.filter((c) => c.d === ui.ldom);
+  if (!ui.cardId || !card(ui.cardId)) ui.cardId = dcards[0].id;
+  const c = card(ui.cardId);
+  const seen = (id) => rec("c:" + id) ? '<i class="seen" title="Reviewed"></i>' : '<i></i>';
+  const toc = `<aside class="toc">
+    <input class="search" id="search" type="search" placeholder="Search topics" value="${esc(ui.search)}" aria-label="Search topics">
+    ${DOMAINS.map((d) => {
+      const list = CARDS.filter((x) => x.d === d.id && match(x));
+      const open = q ? list.length > 0 : d.id === ui.ldom;
+      if (q && !list.length) return "";
+      return `<div class="tocd ${open ? "open" : ""}">
+        <button class="tochead" data-act="toc-dom" data-v="${d.id}" aria-expanded="${open}"><span>${d.name}</span><span class="small muted">${d.weight}</span></button>
+        ${open ? `<ul>${list.map((x) => `<li><button class="toci" data-act="pick-card" data-v="${x.id}" aria-current="${x.id === c.id}">${seen(x.id)}<span>${esc(x.t)}</span></button></li>`).join("")}</ul>` : ""}
+      </div>`;
+    }).join("") || `<p class="muted small">No topics match.</p>`}
+  </aside>`;
+  const sib = CARDS.filter((x) => x.d === c.d), i = sib.indexOf(c), prev = sib[i - 1], next = sib[i + 1];
+  const tabs = [["ex", "Example"], ["where", "In D365"], ["trap", "Exam trap"]];
+  const tabBody = { ex: `<p>${c.ex}</p>`, where: `<div class="where">${c.where}</div>`, trap: `<p>${c.trap}</p>` }[ui.tab];
+  const reader = `<article class="reader">
+    <button class="btn ghost small backbtn" data-act="back-toc">All topics</button>
+    <span class="eyebrow">${dom(c.d).name} · ${i + 1} of ${sib.length}</span>
+    <h1 class="rtitle">${esc(c.t)}</h1>
+    <p class="rwhy">${c.why}</p>
+    <p class="rplain">${c.plain}</p>
+    ${c.low ? `<p class="note">I'm less sure about parts of this one. Check it on Microsoft Learn.</p>` : ""}
+    <div class="rtabs" role="tablist">${tabs.map(([k, l]) => `<button role="tab" data-act="tab" data-v="${k}" aria-selected="${ui.tab === k}">${l}</button>`).join("")}</div>
+    <div class="rtab ${ui.tab === "trap" ? "is-trap" : ""}">${tabBody}</div>
+    <div class="rlinks small">
+      <a href="${learnLink(c.t)}" target="_blank" rel="noopener">Microsoft Learn</a>
+      ${c.v ? `<a href="${ytLink(c.v)}" target="_blank" rel="noopener">Video ${hms(c.v[0])}</a>` : ""}
+      <button class="linkbtn" data-act="practice-card" data-v="${c.id}">Practise this</button>
+    </div>
+    <nav class="rnav">
+      ${prev ? `<button class="btn" data-act="pick-card" data-v="${prev.id}">← ${esc(prev.t)}</button>` : "<span></span>"}
+      ${next ? `<button class="btn" data-act="pick-card" data-v="${next.id}">${esc(next.t)} →</button>` : "<span></span>"}
+    </nav>
+  </article>`;
+  return `<section class="row" style="justify-content:space-between"><h2>Learn</h2>
+      <button class="btn primary" data-act="start-flash">Recall mode: ${dom(ui.ldom).short}</button></section>
+    <section class="learn ${ui.mobileReader ? "show-reader" : ""}">${toc}${reader}</section>`;
+}
+function startFlash() {
+  const pool = CARDS.filter((c) => c.d === ui.ldom);
+  const due = pool.filter((c) => isDue("c:" + c.id)).sort((a, b) => rec("c:" + a.id).due - rec("c:" + b.id).due);
+  const fresh = shuffle(pool.filter((c) => !rec("c:" + c.id)));
+  const items = due.concat(fresh).slice(0, 12);
+  if (!items.length) return;
+  flash = { items, i: 0, shown: false, done: 0 };
+  render();
+}
+function vFlash() {
+  const f = flash;
+  if (f.i >= f.items.length) {
+    return `<section class="qbox"><span class="eyebrow">Recall round done</span><h2>${f.done} cards reviewed</h2>
+      <p class="muted">Cards you found hard will come back tomorrow. Easy ones wait longer.</p>
+      <div class="row"><button class="btn primary" data-act="end-flash">Back to cards</button><button class="btn" data-act="start-mixed">Practise questions</button></div></section>`;
+  }
+  const c = f.items[f.i];
+  return `<section class="stack">
+    <div class="pbar"><i style="width:${(f.i / f.items.length) * 100}%"></i></div>
+    <div class="qbox">
+      <div class="qhead"><span class="tag">${dom(c.d).short}</span><span class="small muted">${f.i + 1} of ${f.items.length}</span></div>
+      <h2>${esc(c.t)}</h2>
+      ${f.shown ? cardBody(c).replace('<div class="cbody">', '<div class="cbody" style="padding:0">') + `
+        <div class="stack" style="gap:8px"><span class="eyebrow">How well did you know it?</span>
+        <div class="row"><button class="btn" data-act="rate" data-v="0">Didn't know</button><button class="btn" data-act="rate" data-v="1">Partly</button><button class="btn primary" data-act="rate" data-v="2">Knew it</button></div></div>`
+      : `<p>Before you reveal: say out loud <b>what it is</b>, <b>when you'd use it</b>, and <b>one example</b>.</p>
+         <div class="row"><button class="btn primary" data-act="reveal">Reveal</button><button class="btn ghost" data-act="end-flash">Stop</button></div>`}
+    </div></section>`;
+}
+
+// ---------- PRACTICE ----------
+function buildSession(domId, size, cardId) {
+  let pool = QUESTIONS.filter((q) => (!domId || domId === "all" || q.d === domId) && (!cardId || q.c === cardId));
+  const due = pool.filter((q) => isDue("q:" + q.id)).sort((a, b) => rec("q:" + a.id).due - rec("q:" + b.id).due);
+  let fresh = pool.filter((q) => !rec("q:" + q.id));
+  if (!domId || domId === "all") {
+    // weight new questions by exam weight
+    const byD = {}; fresh.forEach((q) => (byD[q.d] = byD[q.d] || []).push(q));
+    Object.keys(byD).forEach((k) => (byD[k] = shuffle(byD[k])));
+    const out = []; let guard = 0;
+    while (Object.values(byD).some((a) => a.length) && guard++ < 1000) {
+      const avail = DOMAINS.filter((d) => byD[d.id]?.length);
+      let r = Math.random() * avail.reduce((s, d) => s + d.w, 0);
+      const pick = avail.find((d) => (r -= d.w) <= 0) || avail[0];
+      out.push(byD[pick.id].shift());
+    }
+    fresh = out;
+  } else fresh = shuffle(fresh);
+  let items = due.concat(fresh).slice(0, size);
+  let extra = false;
+  if (!items.length) { // nothing due or new: weakest first
+    items = shuffle(pool).sort((a, b) => (rec("q:" + a.id)?.box || 0) - (rec("q:" + b.id)?.box || 0)).slice(0, size);
+    extra = true;
+  }
+  return { items, i: 0, picked: [], guessed: false, checked: false, right: 0, requeued: new Set(), extra, order: null };
+}
+function startPractice(domId, cardId) {
+  session = buildSession(domId, cardId ? 8 : 10, cardId);
+  session.label = cardId ? card(cardId).t : domId && domId !== "all" ? dom(domId).name : "Mixed, weighted by exam area";
+  go("practice"); render();
+}
+function vPractice() {
+  if (!session) {
+    return `<section class="stack"><h1>Practice</h1>
+      <p class="muted">Scenario questions like the ones you'll face as a consultant. After each answer you see why every option is right or wrong.</p></section>
+      <section class="stack"><h2>Pick a session</h2>
+      <div class="domains">
+        <div class="dom"><div class="stack" style="gap:2px"><h3>Mixed session</h3><span class="meta">Due items first, then new ones weighted by exam area</span></div><div></div><div class="row"><button class="btn primary" data-act="start-mixed">Start</button></div></div>
+        ${DOMAINS.map((d) => { const due = QUESTIONS.filter((q) => q.d === d.id && isDue("q:" + q.id)).length; const nw = QUESTIONS.filter((q) => q.d === d.id && !rec("q:" + q.id)).length;
+          return `<div class="dom"><div class="stack" style="gap:2px"><h3>${d.name}</h3><span class="meta">${due} due · ${nw} new</span></div><div><div class="bar"><i style="width:${Math.round(mastery(d.id) * 100)}%"></i></div></div><div class="row"><button class="btn" data-act="practice-dom" data-v="${d.id}">Start</button></div></div>`; }).join("")}
+      </div></section>`;
+  }
+  const s = session;
+  if (s.i >= s.items.length) {
+    const pct = Math.round((s.right / Math.max(1, s.items.length - s.requeued.size)) * 100);
+    return `<section class="qbox"><span class="eyebrow">Session done</span><h2>${s.right} right first time out of ${s.items.length - s.requeued.size}</h2>
+      <p class="muted">${pct >= 80 ? "Strong. These will come back in a few days to lock them in." : "Missed ones came back once already and will return tomorrow. Read their cards before then."}</p>
+      <div class="row"><button class="btn primary" data-act="start-mixed">Another session</button><button class="btn" data-act="end-session">Back</button></div></section>`;
+  }
+  const q = s.items[s.i];
+  if (!s.order || s.order.q !== q.id) s.order = { q: q.id, idx: shuffle(q.o.map((_, i) => i)) };
+  const c = card(q.c);
+  const multi = q.a.length > 1;
+  const correct = s.checked && sameSet(s.picked, q.a);
+  return `<section class="stack">
+    <div class="row" style="justify-content:space-between"><span class="small muted">${esc(s.label)}${s.extra ? " · extra practice on your weakest items" : ""}</span><button class="btn ghost small" data-act="end-session">End session</button></div>
+    <div class="pbar"><i style="width:${(s.i / s.items.length) * 100}%"></i></div>
+    <div class="qbox">
+      <div class="qhead"><span class="row" style="gap:6px"><span class="tag">${dom(q.d).short}</span>${multi ? '<span class="tag warn">Choose two</span>' : ""}</span><span class="small muted">${s.i + 1} of ${s.items.length}</span></div>
+      <p class="qtext">${esc(q.q)}</p>
+      <div class="opts">${s.order.idx.map((oi, n) => {
+        const picked = s.picked.includes(oi), isRight = q.a.includes(oi);
+        const cls = s.checked ? (isRight ? "right" : picked ? "wrong" : "") : "";
+        return `<button class="opt ${multi ? "multi" : ""} ${cls}" data-act="pick" data-v="${oi}" aria-pressed="${picked}" ${s.checked ? "disabled" : ""}>
+          <span class="mk">${"ABCD"[n]}</span><span>${esc(q.o[oi])}${s.checked && (picked || isRight) ? `<span class="why">${esc(q.x[oi])}</span>` : ""}</span></button>`;
+      }).join("")}</div>
+      ${s.checked ? `
+        <div class="stack" style="gap:8px">
+          <span class="verdict ${correct ? "ok" : "no"}">${correct ? (s.guessed ? "Right, but you guessed" : "Right") : "Not quite"}</span>
+          <p class="small muted">${correct ? (s.guessed ? "It'll come back tomorrow so you can earn it properly." : "Next review is spaced further out.") : "It'll come back at the end of this session and again tomorrow."}</p>
+          <div class="row"><button class="btn primary" data-act="next">Next</button>${c ? `<button class="btn" data-act="open-card" data-v="${c.id}">Read the card: ${esc(c.t)}</button>` : ""}</div>
+        </div>` : `
+        <div class="row" style="justify-content:space-between">
+          <label class="toggle"><input type="checkbox" id="guess" ${s.guessed ? "checked" : ""} data-act="guess"> I'm guessing</label>
+          <button class="btn primary" data-act="check" ${s.picked.length === q.a.length ? "" : "disabled"}>Check answer</button>
+        </div>`}
+    </div></section>`;
+}
+const sameSet = (a, b) => a.length === b.length && a.every((x) => b.includes(x));
+
+// ---------- EXAM ----------
+const EXAM_N = 40, EXAM_MIN = 100;
+function startExam() {
+  const sum = DOMAINS.reduce((s, d) => s + d.w, 0);
+  let picks = [];
+  DOMAINS.forEach((d) => { const n = Math.round((EXAM_N * d.w) / sum); picks = picks.concat(shuffle(QUESTIONS.filter((q) => q.d === d.id)).slice(0, n)); });
+  picks = shuffle(picks).slice(0, EXAM_N);
+  exam = { items: picks.map((q) => ({ q, order: shuffle(q.o.map((_, i) => i)), picked: [] })), i: 0, start: Date.now(), done: false, flagged: new Set() };
+  tick(); render();
+}
+function tick() {
+  clearInterval(timerId);
+  timerId = setInterval(() => {
+    if (!exam || exam.done) return clearInterval(timerId);
+    const left = EXAM_MIN * 60 - (Date.now() - exam.start) / 1000;
+    const t = $("#timer"); if (t) t.textContent = fmtTime(left);
+    if (left <= 0) finishExam();
+  }, 1000);
+}
+function finishExam() {
+  exam.done = true; clearInterval(timerId);
+  const by = {}; let right = 0;
+  exam.items.forEach((it) => { const ok = sameSet(it.picked, it.q.a); it.ok = ok; if (ok) right++; const b = (by[it.q.d] = by[it.q.d] || { r: 0, n: 0 }); b.n++; if (ok) b.r++; if (it.picked.length) grade("q:" + it.q.id, ok, false); });
+  exam.result = { right, n: exam.items.length, by, mins: Math.round((Date.now() - exam.start) / 60000) };
+  S.exams.push({ at: Date.now(), score: Math.round((right / exam.items.length) * 1000), by }); save();
+  render();
+}
+function vExam() {
+  if (!exam) {
+    const last = S.exams.slice(-5).reverse();
+    return `<section class="stack"><h1>Mock exam</h1>
+      <p>${EXAM_N} questions spread by the official exam weights, ${EXAM_MIN} minutes, no feedback until the end. Answers still feed your review schedule.</p>
+      <p class="note">This is practice, not a copy of the real exam. The real MB-330 is scored out of 1000 with 700 to pass, and question styles vary (case studies, drag and drop). The score here is just your percentage scaled to 1000.</p>
+      <div class="row"><button class="btn primary" data-act="start-exam">Start mock exam</button></div></section>
+      ${last.length ? `<section class="stack"><h2>Recent attempts</h2><div class="domains">${last.map((e) => `<div class="dom"><div><b>${e.score}</b> <span class="muted small">/ 1000</span></div><div class="small muted">${new Date(e.at).toLocaleDateString()}</div><div class="small ${e.score >= 700 ? "" : "muted"}">${e.score >= 700 ? "Above 700" : "Below 700"}</div></div>`).join("")}</div></section>` : ""}`;
+  }
+  if (exam.done) {
+    const r = exam.result, score = Math.round((r.right / r.n) * 1000);
+    return `<section class="stack"><span class="eyebrow">Mock exam result</span>
+      <div class="row" style="align-items:flex-end;gap:14px"><span class="score" style="color:${score >= 700 ? "var(--good)" : "var(--bad)"}">${score}</span><span class="muted">/ 1000 · ${r.right} of ${r.n} right · ${r.mins} min</span></div></section>
+      <section class="stack"><h2>By exam area</h2><div class="domains">
+      ${DOMAINS.filter((d) => r.by[d.id]).map((d) => { const b = r.by[d.id], p = Math.round((b.r / b.n) * 100); return `<div class="dom"><div><h3>${d.name}</h3><span class="meta">${b.r} of ${b.n}</span></div><div><div class="bar"><i style="width:${p}%;background:${p >= 70 ? "var(--good)" : "var(--bad)"}"></i></div><div class="barlab">${p}%</div></div><div><button class="btn" data-act="practice-dom" data-v="${d.id}">Practise</button></div></div>`; }).join("")}
+      </div></section>
+      <section class="stack"><h2>Review your misses</h2>
+      ${exam.items.filter((it) => !it.ok).map((it) => `<div class="qbox"><span class="tag">${dom(it.q.d).short}</span><p class="qtext">${esc(it.q.q)}</p>
+        <div class="opts">${it.order.map((oi, n) => { const p = it.picked.includes(oi), ok = it.q.a.includes(oi); return `<div class="opt ${ok ? "right" : p ? "wrong" : ""}"><span class="mk">${"ABCD"[n]}</span><span>${esc(it.q.o[oi])}${p || ok ? `<span class="why">${esc(it.q.x[oi])}</span>` : ""}</span></div>`; }).join("")}</div>
+        <div><button class="btn ghost" data-act="open-card" data-v="${it.q.c}">Read the card</button></div></div>`).join("") || "<p>No misses. Nice.</p>"}
+      </section>
+      <div class="row"><button class="btn primary" data-act="close-exam">Done</button></div>`;
+  }
+  const it = exam.items[exam.i], q = it.q, multi = q.a.length > 1;
+  const answered = exam.items.filter((x) => x.picked.length).length;
+  return `<section class="stack">
+    <div class="row" style="justify-content:space-between"><span class="small muted">${answered} of ${exam.items.length} answered</span><span class="timer">Time left <b id="timer">${fmtTime(EXAM_MIN * 60 - (Date.now() - exam.start) / 1000)}</b></span></div>
+    <div class="pbar"><i style="width:${(answered / exam.items.length) * 100}%"></i></div>
+    <div class="qbox">
+      <div class="qhead"><span class="row" style="gap:6px"><span class="tag">Question ${exam.i + 1}</span>${multi ? '<span class="tag warn">Choose two</span>' : ""}</span>
+        <label class="toggle"><input type="checkbox" data-act="flag" ${exam.flagged.has(exam.i) ? "checked" : ""}> Flag for review</label></div>
+      <p class="qtext">${esc(q.q)}</p>
+      <div class="opts">${it.order.map((oi, n) => `<button class="opt ${multi ? "multi" : ""}" data-act="xpick" data-v="${oi}" aria-pressed="${it.picked.includes(oi)}"><span class="mk">${"ABCD"[n]}</span><span>${esc(q.o[oi])}</span></button>`).join("")}</div>
+      <div class="row" style="justify-content:space-between">
+        <button class="btn" data-act="xprev" ${exam.i ? "" : "disabled"}>Previous</button>
+        ${exam.i < exam.items.length - 1 ? `<button class="btn primary" data-act="xnext">Next</button>` : `<button class="btn primary" data-act="xfinish">Finish and score</button>`}
+      </div>
+    </div>
+    <div class="row small">${exam.items.map((x, i) => `<button class="chip" data-act="xgo" data-v="${i}" aria-pressed="${i === exam.i}" style="min-width:2.4em;${x.picked.length ? "" : "opacity:.6;"}${exam.flagged.has(i) ? "border-color:var(--amber);" : ""}">${i + 1}</button>`).join("")}</div>
+    <div class="row"><button class="btn ghost danger" data-act="xfinish">Finish now</button></div>
+  </section>`;
+}
+
+// ---------- LABS ----------
+function vLabs() {
+  const list = LABS.filter((l) => ui.dom === "all" || l.d === ui.dom);
+  return `<section class="stack"><h1>Labs in your D365 environment</h1>
+    <p class="muted">Doing it once in the system beats reading about it five times. Use a test or demo company (for example USMF if your environment has demo data), never production. Menu paths can differ slightly by version. If one doesn't match, use the search bar at the top of D365.</p>
+    ${domChips(ui.dom)}</section>
+    <section class="clist">${list.map((l) => {
+      const st = S.labs[l.id] || [], done = l.steps.filter((_, i) => st[i]).length, complete = done === l.steps.length;
+      return `<details class="card" data-lab="${l.id}" ${ui.open === l.id ? "open" : ""}>
+        <summary><h3>${esc(l.t)}</h3><span class="row" style="gap:8px;flex:none"><span class="tag ${complete ? "" : ""}">${complete ? "Done" : `${done}/${l.steps.length}`}</span><span class="tag">${dom(l.d).short}</span><span class="small muted">${l.mins} min</span></span></summary>
+        <div class="cbody">
+          <p><b>Goal:</b> ${esc(l.goal)}</p>
+          <ol class="steps">${l.steps.map((s, i) => `<li class="${st[i] ? "done" : ""}"><input type="checkbox" id="${l.id}-${i}" data-act="step" data-lab="${l.id}" data-v="${i}" ${st[i] ? "checked" : ""}><label for="${l.id}-${i}"><span>${esc(s)}</span></label></li>`).join("")}</ol>
+          <div class="stack" style="gap:10px"><span class="eyebrow" style="color:var(--accent)">Check yourself (write it in your own words)</span>
+            ${l.check.map((c, i) => `<label class="stack" style="gap:4px"><span>${esc(c)}</span><textarea id="${l.id}-n${i}" data-act="note" data-k="${l.id}-${i}" placeholder="Your answer, saved on this device">${esc(S.notes[l.id + "-" + i] || "")}</textarea></label>`).join("")}
+          </div>
+          <div class="row small"><span class="muted">Related cards:</span>${l.cards.map((id) => `<button class="btn ghost small" data-act="open-card" data-v="${id}">${esc(card(id)?.t || id)}</button>`).join("")}</div>
+        </div></details>`;
+    }).join("")}</section>`;
+}
+
+// ---------- PROGRESS ----------
+function vProgress() {
+  const seen = Object.keys(S.srs).length, total = QUESTIONS.length + CARDS.length;
+  const solid = Object.values(S.srs).filter((r) => r.box >= 3).length;
+  const labsDone = LABS.filter((l) => l.steps.every((_, i) => (S.labs[l.id] || [])[i])).length;
+  const best = S.exams.length ? Math.max(...S.exams.map((e) => e.score)) : null;
+  return `<section class="stack"><h1>Your progress</h1>
+    <p class="muted">Progress is saved in this browser only. Each friend keeps their own. Use the backup below to move it to another device.</p>
+    <label class="stack" style="gap:4px;max-width:340px"><span class="eyebrow">Your name (optional)</span><input class="search" id="name" data-act="name" value="${esc(S.name)}" placeholder="e.g. Raj"></label></section>
+    <section class="loop">
+      <div><span class="k">Seen</span><b style="font-size:1.6rem;font-family:var(--f-display)">${seen} / ${total}</b><span class="small muted">cards and questions</span></div>
+      <div><span class="k">Solid</span><b style="font-size:1.6rem;font-family:var(--f-display)">${solid}</b><span class="small muted">remembered across 3+ spaced reviews</span></div>
+      <div><span class="k">Streak · labs · best mock</span><b style="font-size:1.6rem;font-family:var(--f-display)">${streak()}d · ${labsDone}/${LABS.length} · ${best ?? "–"}</b><span class="small muted">days in a row · labs done · out of 1000</span></div>
+    </section>
+    <section class="stack"><h2>By exam area</h2><div class="domains">
+      ${DOMAINS.map((d) => { const m = Math.round(mastery(d.id) * 100); return `<div class="dom"><div><h3>${d.name}</h3><span class="meta">${d.weight} of the exam</span></div><div><div class="bar"><i style="width:${m}%"></i></div><div class="barlab">${m}% remembered</div></div><div><button class="btn" data-act="practice-dom" data-v="${d.id}">Practise</button></div></div>`; }).join("")}
+    </div></section>
+    <section class="stack"><h2>Weakest items</h2>
+      ${(() => { const weak = QUESTIONS.filter((q) => rec("q:" + q.id)?.wrong).sort((a, b) => rec("q:" + b.id).wrong - rec("q:" + a.id).wrong).slice(0, 6);
+        return weak.length ? `<div class="domains">${weak.map((q) => `<div class="dom"><div class="small">${esc(q.q)}</div><div class="small muted">missed ${rec("q:" + q.id).wrong}×</div><div><button class="btn ghost" data-act="open-card" data-v="${q.c}">Card</button></div></div>`).join("")}</div>` : `<p class="muted">Nothing missed yet.</p>`; })()}
+    </section>
+    <section class="stack"><h2>Backup and move</h2>
+      <p class="small muted">Copy this code and paste it on another device to carry your progress over.</p>
+      <textarea id="backup" readonly style="min-height:90px" class="mono">${esc(btoa(unescape(encodeURIComponent(JSON.stringify(S)))))}</textarea>
+      <div class="row"><button class="btn" data-act="copy">Copy backup code</button><span id="copied" class="small muted"></span></div>
+      <textarea id="restore" placeholder="Paste a backup code here" class="mono"></textarea>
+      <div class="row"><button class="btn" data-act="restore">Restore from code</button><span id="restoremsg" class="small muted"></span></div>
+    </section>
+    <section class="stack"><h2>Start over</h2>
+      <div class="row"><button class="btn danger" data-act="reset1">Erase my progress</button><span id="reset2"></span></div></section>`;
+}
+
+// ---------- events ----------
+document.addEventListener("click", (e) => {
+  const t = e.target.closest("[data-act]"); if (!t) return;
+  const a = t.dataset.act, v = t.dataset.v;
+  if (["guess", "flag", "step", "note", "name"].includes(a)) return; // handled by change/input
+  switch (a) {
+    case "close-ov": t.closest(".ov").remove(); break;
+    case "dom": ui.dom = v; render(); break;
+    case "learn-dom": ui.ldom = v; ui.cardId = null; ui.mobileReader = false; flash = null; go("learn"); break;
+    case "toc-dom": ui.ldom = v; ui.cardId = null; ui.search = ""; render(); break;
+    case "pick-card": ui.cardId = v; ui.ldom = card(v).d; ui.tab = "ex"; ui.mobileReader = true; render(); break;
+    case "back-toc": ui.mobileReader = false; render(); break;
+    case "tab": ui.tab = v; render(); break;
+    case "practice-dom": startPractice(v); break;
+    case "practice-card": document.querySelector(".ov")?.remove(); startPractice(null, v); break;
+    case "start-mixed": startPractice("all"); break;
+    case "start-flash": startFlash(); break;
+    case "reveal": flash.shown = true; render(); break;
+    case "rate": { const c = flash.items[flash.i]; const r = +v; grade("c:" + c.id, r > 0, r === 1); flash.i++; flash.done++; flash.shown = false; render(); break; }
+    case "end-flash": flash = null; render(); break;
+    case "open-card": openCard(v); break;
+    case "pick": {
+      const q = session.items[session.i], oi = +v, multi = q.a.length > 1;
+      if (multi) { session.picked = session.picked.includes(oi) ? session.picked.filter((x) => x !== oi) : session.picked.length < q.a.length ? session.picked.concat(oi) : session.picked; }
+      else session.picked = [oi];
+      render(); break;
+    }
+    case "check": {
+      const q = session.items[session.i], ok = sameSet(session.picked, q.a);
+      session.checked = true;
+      if (!session.seenOnce) session.seenOnce = new Set();
+      const firstTime = !session.seenOnce.has(q.id); session.seenOnce.add(q.id);
+      if (firstTime) { grade("q:" + q.id, ok, session.guessed); if (ok) session.right++; }
+      if (!ok && firstTime) { session.items.push(q); session.requeued.add(q.id); }
+      render(); break;
+    }
+    case "next": session.i++; session.picked = []; session.checked = false; session.guessed = false; session.order = null; render(); break;
+    case "end-session": session = null; render(); break;
+    case "start-exam": startExam(); break;
+    case "xpick": {
+      const it = exam.items[exam.i], oi = +v, multi = it.q.a.length > 1;
+      if (multi) it.picked = it.picked.includes(oi) ? it.picked.filter((x) => x !== oi) : it.picked.length < it.q.a.length ? it.picked.concat(oi) : it.picked;
+      else it.picked = [oi];
+      render(); break;
+    }
+    case "xprev": exam.i--; render(); break;
+    case "xnext": exam.i++; render(); break;
+    case "xgo": exam.i = +v; render(); break;
+    case "xfinish": finishExam(); break;
+    case "close-exam": exam = null; render(); break;
+    case "copy": {
+      const ta = $("#backup");
+      const done = () => ($("#copied").textContent = "Copied.");
+      try { navigator.clipboard.writeText(ta.value).then(done, () => { ta.select(); $("#copied").textContent = "Selected. Press Ctrl+C or Cmd+C."; }); }
+      catch (err) { ta.select(); $("#copied").textContent = "Selected. Press Ctrl+C or Cmd+C."; }
+      break;
+    }
+    case "restore": {
+      try { const obj = JSON.parse(decodeURIComponent(escape(atob($("#restore").value.trim())))); if (!obj || typeof obj.srs !== "object") throw 0; S = Object.assign(blank(), obj); save(); render(); }
+      catch (err) { $("#restoremsg").textContent = "That code didn't work. Copy the whole code and try again."; }
+      break;
+    }
+    case "reset1": $("#reset2").innerHTML = `<span class="small">This can't be undone.</span> <button class="btn danger" data-act="reset2">Yes, erase everything</button>`; break;
+    case "reset2": S = blank(); save(); session = flash = exam = null; render(); break;
+  }
+});
+document.addEventListener("change", (e) => {
+  const t = e.target, a = t.dataset?.act;
+  if (a === "guess") session.guessed = t.checked;
+  if (a === "flag") { t.checked ? exam.flagged.add(exam.i) : exam.flagged.delete(exam.i); render(); }
+  if (a === "step") {
+    const id = t.dataset.lab, st = S.labs[id] || []; st[+t.dataset.v] = t.checked; S.labs[id] = st; touchDay(); save();
+    ui.open = id; t.closest("li").classList.toggle("done", t.checked);
+    const l = LABS.find((x) => x.id === id), done = l.steps.filter((_, i) => st[i]).length;
+    const tag = t.closest("details").querySelector("summary .tag"); tag.textContent = done === l.steps.length ? "Done" : `${done}/${l.steps.length}`;
+  }
+});
+document.addEventListener("input", (e) => {
+  const t = e.target, a = t.dataset?.act;
+  if (a === "note") { S.notes[t.dataset.k] = t.value; save(); }
+  if (a === "name") { S.name = t.value.slice(0, 40); save(); }
+  if (t.id === "search") { ui.search = t.value; const pos = t.selectionStart; render(); const s = $("#search"); s.focus(); s.setSelectionRange(pos, pos); }
+});
+document.addEventListener("toggle", (e) => { const d = e.target; if (d.dataset?.lab && d.open) ui.open = d.dataset.lab; }, true);
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") document.querySelector(".ov")?.remove();
+  if (view !== "practice" || !session || e.target.matches("input,textarea")) return;
+  const k = e.key.toUpperCase();
+  if ("ABCD".includes(k) && k.length === 1 && !session.checked) { const btn = document.querySelectorAll(".opt")[("ABCD").indexOf(k)]; btn?.click(); }
+  if (e.key === "Enter") { const b = $(session.checked ? "[data-act=next]" : "[data-act=check]:not([disabled])"); b?.click(); }
+});
+
+render();
+})();
+</script></body></html>
