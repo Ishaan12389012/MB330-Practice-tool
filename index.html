@@ -6,22 +6,17 @@
 <style>
 /* Layout: one centred working column under a sticky tab bar; content blocks are plain sections, only interactive objects (questions, cards) get a frame. */
 :root {
-  --bg: #f3f5f2; --surface: #ffffff; --sunk: #e8ece7; --line: #d3dad3;
-  --ink: #17211d; --muted: #56635d; --accent: #0d6a5a; --accent-ink: #ffffff; --accent-soft: #d6ebe5;
-  --amber: #a86a0c; --amber-soft: #f7e8cc; --good: #23733b; --good-soft: #dcefe0; --bad: #a83a2a; --bad-soft: #f6dfda;
+  /* Charcoal & cream with dusty blue (single dark look, chosen by Raj) */
+  --bg: #1a1917; --surface: #23221f; --sunk: #141311; --line: #38352f;
+  --ink: #f1e9d8; --muted: #a9a192; --accent: #8fb3d9; --accent-ink: #0f1c2a; --accent-soft: #24323f;
+  --amber: #5a4a2e; --amber-soft: #efe6d3; --trap-ink: #2a251d;
+  --good: #8fcf9c; --good-soft: #1f3326; --bad: #ef8f7f; --bad-soft: #3d201b;
   --f-display: "Bricolage Grotesque", "Segoe UI", system-ui, sans-serif;
   --f-body: "Public Sans", "Segoe UI", system-ui, sans-serif;
   --f-mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
   --r: 10px;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
-  --bg: #111614; --surface: #19201d; --sunk: #0c100e; --line: #2b3531;
-  --ink: #e4ebe7; --muted: #9aa8a1; --accent: #4cc2a6; --accent-ink: #062019; --accent-soft: #163b33;
-  --amber: #e2a649; --amber-soft: #3a2c13; --good: #6fcf8a; --good-soft: #17331f; --bad: #f08a78; --bad-soft: #3d1c17; color-scheme: dark } }
-:root[data-theme="dark"] {
-  --bg: #111614; --surface: #19201d; --sunk: #0c100e; --line: #2b3531;
-  --ink: #e4ebe7; --muted: #9aa8a1; --accent: #4cc2a6; --accent-ink: #062019; --accent-soft: #163b33;
-  --amber: #e2a649; --amber-soft: #3a2c13; --good: #6fcf8a; --good-soft: #17331f; --bad: #f08a78; --bad-soft: #3d1c17; color-scheme: dark }
 
 * { box-sizing: border-box; }
 body { background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 16px; line-height: 1.55; }
@@ -96,7 +91,7 @@ main { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-i
 .field { display: grid; gap: 3px; }
 .field .eyebrow { color: var(--accent); }
 .where { font-family: var(--f-mono); font-size: .82rem; background: var(--sunk); padding: 8px 10px; border-radius: 6px; overflow-wrap: anywhere; }
-.trap { background: var(--amber-soft); padding: 10px 12px; border-radius: 6px; }
+.trap { background: var(--amber-soft); color: var(--trap-ink); padding: 10px 12px; border-radius: 6px; }
 .trap .eyebrow { color: var(--amber); }
 .dots { display: inline-flex; gap: 3px; flex: none; }
 .dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
@@ -120,7 +115,7 @@ main { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area-i
 .verdict { font-family: var(--f-display); font-size: 1.3rem; font-weight: 700; }
 .verdict.ok { color: var(--good); } .verdict.no { color: var(--bad); }
 .toggle { display: inline-flex; gap: 8px; align-items: center; cursor: pointer; font-size: .92rem; }
-.toggle input { width: 18px; height: 18px; accent-color: var(--amber); }
+.toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
 .pbar { height: 4px; background: var(--sunk); border-radius: 99px; overflow: hidden; }
 .pbar i { display: block; height: 100%; background: var(--accent); }
 
@@ -134,7 +129,7 @@ textarea { width: 100%; min-height: 64px; padding: 8px 10px; border: 1px solid v
 /* Exam results */
 .score { font-family: var(--f-display); font-size: 3.4rem; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
 .timer { font-family: var(--f-mono); font-variant-numeric: tabular-nums; }
-.note { border-left: 3px solid var(--amber); padding: 8px 12px; background: var(--surface); font-size: .9rem; color: var(--muted); }
+.note { border-left: 3px solid var(--accent); padding: 8px 12px; background: var(--surface); font-size: .9rem; color: var(--muted); }
 
 /* Overlay */
 .ov { position: fixed; inset: 0; background: rgb(0 0 0 / .45); z-index: 20; display: grid; place-items: center; padding: max(16px, env(safe-area-inset-top, 0px)) max(16px, env(safe-area-inset-right, 0px)) max(16px, env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px)); }
@@ -164,7 +159,8 @@ footer { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area
 .rtabs button { flex: none; background: none; border: 0; border-bottom: 3px solid transparent; padding: 8px 12px; font-weight: 600; color: var(--muted); cursor: pointer; }
 .rtabs button[aria-selected="true"] { color: var(--ink); border-bottom-color: var(--accent); }
 .rtab { min-height: 72px; }
-.rtab.is-trap p { background: var(--amber-soft); padding: 12px 14px; border-radius: 6px; }
+.rtab.is-trap p { background: var(--amber-soft); color: var(--trap-ink); padding: 12px 14px; border-radius: 6px; }
+.rtab.is-trap b, .trap b { color: #1a1917; }
 .rlinks { display: flex; gap: 18px; flex-wrap: wrap; align-items: center; }
 .linkbtn { background: none; border: 0; padding: 0; color: var(--accent); text-decoration: underline; cursor: pointer; }
 .rnav { display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap; padding-top: 12px; border-top: 1px solid var(--line); }
@@ -1859,7 +1855,7 @@ function vExam() {
         ${exam.i < exam.items.length - 1 ? `<button class="btn primary" data-act="xnext">Next</button>` : `<button class="btn primary" data-act="xfinish">Finish and score</button>`}
       </div>
     </div>
-    <div class="row small">${exam.items.map((x, i) => `<button class="chip" data-act="xgo" data-v="${i}" aria-pressed="${i === exam.i}" style="min-width:2.4em;${x.picked.length ? "" : "opacity:.6;"}${exam.flagged.has(i) ? "border-color:var(--amber);" : ""}">${i + 1}</button>`).join("")}</div>
+    <div class="row small">${exam.items.map((x, i) => `<button class="chip" data-act="xgo" data-v="${i}" aria-pressed="${i === exam.i}" style="min-width:2.4em;${x.picked.length ? "" : "opacity:.6;"}${exam.flagged.has(i) ? "border-color:var(--accent);" : ""}">${i + 1}</button>`).join("")}</div>
     <div class="row"><button class="btn ghost danger" data-act="xfinish">Finish now</button></div>
   </section>`;
 }
