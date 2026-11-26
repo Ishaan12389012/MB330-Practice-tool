@@ -1356,7 +1356,65 @@ const QUESTIONS = [
   x: ["Right.",
       "No buckets there.",
       "Not bucketed by period templates.",
-      "Transport."] }
+      "Transport."] },
+
+// ===== Extra questions for topics the video skips =====
+{ id: "q-pim-21", d: "pim", c: "pim-barcodes",
+  q: "Inner tubes are scanned as single tubes and as boxes of 20, and each has a different barcode. How is this set up?",
+  o: ["Assign two bar codes to the item, one for each unit (ea and box)", "One barcode plus a unit conversion", "A product attribute for each barcode", "A GTIN on the product master only"],
+  a: [0],
+  x: ["Right. Bar codes are stored per item, variant and unit.",
+      "A conversion gives the factor, but the scanner still needs the box's own barcode.",
+      "Attributes describe products. Scanners don't read them.",
+      "GTINs are also per unit, and one code can't cover both packs."] },
+{ id: "q-pim-22", d: "pim", c: "pim-templates",
+  q: "50 products were created from a product template. Then someone changes the template. What happens to the 50 products?",
+  o: ["Nothing. Templates only copy values when a product is created.", "They all update automatically", "They update the next time someone opens them", "They're blocked until reviewed"],
+  a: [0],
+  x: ["Right. There's no link back to the template.",
+      "No live link exists.",
+      "No.",
+      "No."] },
+{ id: "q-scp-13", d: "scp", c: "scp-receive",
+  q: "The company sends 5 faulty saddles back to the vendor. How is this usually done in D365?",
+  o: ["A purchase order line with a negative quantity, often with the vendor's return number", "A sales return order", "A movement journal", "A transfer order to the vendor"],
+  a: [0],
+  x: ["Right.",
+      "Sales returns are for customers sending goods back to you.",
+      "That would skip the vendor and the credit.",
+      "Transfer orders move stock between your own warehouses."] },
+{ id: "q-tms-4", d: "wms", c: "tms-rates",
+  q: "Carriers should book 1-hour slots to unload at the company's dock. Which feature?",
+  o: ["Dock appointment scheduling", "Route guides", "Load templates", "Wave templates"],
+  a: [0],
+  x: ["Right.",
+      "Route guides pick a route plan.",
+      "Load templates set weight and volume limits.",
+      "Wave templates are for outbound processing."] },
+{ id: "q-wms-15", d: "wms", c: "wms-mobile",
+  q: "A new warehouse employee can't sign in to the Warehouse Management mobile app. What has to exist first?",
+  o: ["A warehouse worker record with a user ID and a default warehouse", "A location directive for the worker", "A work policy", "A new mobile device menu"],
+  a: [0],
+  x: ["Right. Workers are set up under Warehouse management > Setup > Worker.",
+      "Directives choose locations, not users.",
+      "Work policies stop work being created.",
+      "A menu is needed, but it doesn't create the login."] },
+{ id: "q-am-6", d: "inv", c: "am-assets",
+  q: "Several pumps share the same counters and lifecycle model. Where is that shared setup kept?",
+  o: ["On the asset type", "On each functional location", "On the work order type", "On the maintenance request"],
+  a: [0],
+  x: ["Right. Asset types group assets with shared settings.",
+      "Functional locations are where assets are installed.",
+      "Work order types set defaults for jobs.",
+      "Requests report faults."] },
+{ id: "q-mp-13", d: "mp", c: "mp-coverage",
+  q: "Which coverage code only works with Planning Optimization?",
+  o: ["Priority", "Period", "Requirement", "Manual"],
+  a: [0],
+  x: ["Right.",
+      "Works with both engines.",
+      "Works with both engines.",
+      "Works with both engines."] }
 ];
 // ---- Hands-on labs: do these in a TEST or demo company, never production ----
 const LABS = [
@@ -1479,7 +1537,84 @@ const LABS = [
     "Open Product information management > Setup > Product lifecycle state. Create a state that blocks purchase orders and isn't active for planning.",
     "Assign it to a released product.",
     "Try creating a PO line for it. Then try a sales order line."],
-  check: ["What did the state block and what did it allow?"] }
+  check: ["What did the state block and what did it allow?"] },
+{ id: "lab-landed", d: "scp", t: "Follow an import voyage (landed cost)", mins: 35, cards: ["lc-voyage"],
+  goal: "See how a voyage adds freight and duty to item cost. Button names may differ a little, so use the D365 search bar if one doesn't match.",
+  steps: [
+    "If there's no Landed cost menu, the module may not be turned on in your environment. Check Feature management or ask your admin. Skip this lab if it's not available.",
+    "Open Landed cost > Setup and look at the parameters, cost type codes, journey templates and auto costs. Note what each one holds.",
+    "Create and confirm a purchase order for one or two items.",
+    "Open Landed cost > Voyages > All voyages and create a voyage. Add a shipping container, then add your PO lines (they go into a folio).",
+    "Add an estimated cost to the voyage, for example freight, using a cost type code.",
+    "Receive the goods, then open the item's inventory transaction to see the landed cost in the item cost."],
+  check: ["How were the voyage costs spread across the lines?", "When would plain charges codes be enough instead?"] },
+{ id: "lab-consign", d: "scp", t: "Consignment end to end", mins: 30, cards: ["scp-consign", "pim-dimgroups"],
+  goal: "Watch stock change owner from the vendor to the company.",
+  steps: [
+    "Find or create a tracking dimension group with Owner active, and an item that uses it.",
+    "Check that the vendor exists as an inventory owner (search 'inventory owners').",
+    "Open Procurement and sourcing > Consignment > Consignment replenishment orders. Create one for the vendor and item, and receive it.",
+    "Check on-hand for the item with the Owner dimension shown. The stock still belongs to the vendor.",
+    "Create an inventory ownership change journal (Procurement and sourcing > Consignment), move some quantity to your company, and post it.",
+    "Find the purchase order the journal created and check its status."],
+  check: ["What does the company own after the journal is posted?", "What would stop working if the item had no Owner dimension?"] },
+{ id: "lab-hold", d: "inv", t: "Hold stock: blocking vs quarantine", mins: 25, cards: ["inv-blocking", "inv-quarantine"],
+  goal: "Compare two ways of keeping stock out of use.",
+  steps: [
+    "Pick an item that isn't WMS-enabled and has stock. Open Inventory management > Periodic tasks > Inventory blocking and block 2 units.",
+    "Create a sales order line for the full on-hand quantity and try to reserve it. Note how many units you can reserve.",
+    "Delete the blocking line and try again.",
+    "Check that the warehouse has a quarantine warehouse set up on its record. Then create a quarantine order for 1 unit (Inventory management > Periodic tasks > Quality management > Quarantine orders).",
+    "Start it and check on-hand in both warehouses. Then report it as finished, end it, and check again."],
+  check: ["When would you use blocking and when a quarantine order?", "Why wouldn't you use quarantine orders for a WMS item?"] }
+];
+
+// ---- Topics the YouTube course skips, based on its chapter titles (some may get a brief mention) ----
+const VIDEO_GAPS = [
+  { c: "pim-imgroup", what: "The video covers costing methods, not the other item model group settings (stocked product, negative inventory, quarantine)." },
+  { c: "pim-reshier", what: "Reservation hierarchies aren't covered." },
+  { c: "pim-templates", what: "Product templates aren't covered." },
+  { c: "pim-category", what: "Category hierarchies and their roles aren't covered." },
+  { c: "pim-attributes", what: "Product attributes aren't covered." },
+  { c: "pim-barcodes", what: "Bar codes and GTINs aren't covered." },
+  { c: "pim-defaultorder", what: "Default order settings aren't covered." },
+  { c: "pim-filtercodes", what: "Product filter codes aren't covered." },
+  { c: "pim-costing", what: "The video covers cost groups, not costing versions or standard cost." },
+  { c: "pim-trade", what: "The video covers purchase trade agreements, not price groups or sales discounts." },
+  { c: "inv-journals", what: "The video covers movement and adjustment journals, not BOM, transfer or item arrival journals." },
+  { c: "inv-transfer", what: "Transfer orders aren't covered." },
+  { c: "inv-close", what: "Inventory close and recalculation aren't covered." },
+  { c: "inv-blocking", what: "Inventory blocking and batch disposition codes aren't covered." },
+  { c: "inv-abc", what: "ABC classification isn't covered." },
+  { c: "inv-quality", what: "Quality management isn't covered at all." },
+  { c: "inv-nonconf", what: "Quality management isn't covered at all." },
+  { c: "inv-quarantine", what: "Quality management isn't covered at all." },
+  { c: "am-assets", what: "Asset management isn't covered at all." },
+  { c: "am-lifecycle", what: "Asset management isn't covered at all." },
+  { c: "am-workorders", what: "Asset management isn't covered at all." },
+  { c: "am-maint", what: "Asset management isn't covered at all." },
+  { c: "am-loans", what: "Asset management isn't covered at all." },
+  { c: "scp-vendors", what: "Vendor setup and hold statuses aren't covered." },
+  { c: "scp-agree", what: "Purchase agreements and vendor rebates aren't covered." },
+  { c: "scp-consign", what: "Consignment isn't covered." },
+  { c: "scp-overunder", what: "Over/under delivery isn't covered." },
+  { c: "scp-catpol", what: "Procurement categories, charges and purchasing policies aren't covered." },
+  { c: "scp-receive", what: "Vendor returns aren't covered, and registration vs product receipt may only get a brief mention." },
+  { c: "scp-wf", what: "Approval workflow setup may be missing. The video's 'workflows' chapters look like process walk-throughs." },
+  { c: "lc-voyage", what: "Landed cost isn't covered at all." },
+  { c: "sales-flow", what: "The video covers sales orders, not quotations, reservations or returns." },
+  { c: "sales-agree", what: "The video covers customer agreements, not sales groups or commissions." },
+  { c: "sales-rebate", what: "Customer rebates and product bundles aren't covered." },
+  { c: "wms-templates", what: "The video covers work templates and waves, not work policies." },
+  { c: "wms-labels", what: "Labels, packing dimensions and containerization aren't covered." },
+  { c: "wms-inout", what: "Inventory statuses aren't covered." },
+  { c: "wms-replen", what: "The video covers cycle counting and cross docking, not replenishment." },
+  { c: "wms-mobile", what: "The video covers mobile device setup, not detours or warehouse workers." },
+  { c: "tms-rates", what: "Dock appointment scheduling and carrier groups aren't covered." },
+  { c: "mp-posneg", what: "Positive and negative days aren't covered." },
+  { c: "mp-fences", what: "Time fences and action messages aren't covered." },
+  { c: "mp-plans", what: "Planning Optimization, period templates and the Supply schedule page aren't covered." },
+  { c: "mp-safety", what: "Safety margins and safety stock journals aren't covered." }
 ];
 // ===== MB-330 Field Kit app =====
 (function () {
@@ -1491,6 +1626,7 @@ const $ = (s, el = document) => el.querySelector(s);
 const esc = (s) => String(s ?? "").replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 const dom = (id) => DOMAINS.find((d) => d.id === id);
 const card = (id) => CARDS.find((c) => c.id === id);
+const gapOf = (id) => VIDEO_GAPS.find((g) => g.c === id);
 const shuffle = (a) => { a = a.slice(); for (let i = a.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [a[i], a[j]] = [a[j], a[i]]; } return a; };
 const fmtTime = (s) => { s = Math.max(0, Math.round(s)); const m = Math.floor(s / 60); return `${m}:${String(s % 60).padStart(2, "0")}`; };
 const hms = (t) => { const h = Math.floor(t / 3600), m = Math.floor((t % 3600) / 60), x = String(t % 60).padStart(2, "0"); return h ? `${h}:${String(m).padStart(2, "0")}:${x}` : `${m}:${x}`; };
@@ -1498,7 +1634,7 @@ const ytLink = (v) => `${VIDEO}&t=${v[0]}s`;
 const learnLink = (t) => `https://learn.microsoft.com/en-us/search/?terms=${encodeURIComponent(t.replace(/\(.*?\)/g, "") + " Dynamics 365 Supply Chain Management")}`;
 
 // ---------- state ----------
-const blank = () => ({ name: "", srs: {}, labs: {}, notes: {}, exams: [], days: [] });
+const blank = () => ({ name: "", srs: {}, labs: {}, notes: {}, exams: [], days: [], gaps: {} });
 let S = blank();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(blank(), JSON.parse(raw)); } catch (e) {}
 function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
@@ -1528,7 +1664,7 @@ function mastery(domId) {
 const dueCount = () => QUESTIONS.filter((q) => isDue("q:" + q.id)).length + CARDS.filter((c) => isDue("c:" + c.id)).length;
 
 // ---------- routing ----------
-const ROUTES = ["home", "learn", "practice", "exam", "labs", "progress"];
+const ROUTES = ["home", "learn", "gaps", "practice", "exam", "labs", "progress"];
 let view = "home"; let lastView = null;
 const ui = { dom: "all", ldom: "pim", cardId: null, tab: "ex", mobileReader: false, search: "", recall: false, open: null };
 let session = null; // practice session
@@ -1542,7 +1678,7 @@ function current() { const h = location.hash.replace("#", ""); return ROUTES.inc
 
 function nav() {
   const due = dueCount();
-  const items = [["home", "Today"], ["learn", "Learn"], ["practice", "Practice"], ["exam", "Mock exam"], ["labs", "Labs"], ["progress", "Progress"]];
+  const items = [["home", "Today"], ["learn", "Learn"], ["gaps", "Video gaps"], ["practice", "Practice"], ["exam", "Mock exam"], ["labs", "Labs"], ["progress", "Progress"]];
   $("#tabs").innerHTML = items.map(([id, label]) =>
     `<a href="#${id}" ${view === id ? 'aria-current="page"' : ""}>${label}${id === "practice" && due ? `<span class="n">${due}</span>` : ""}</a>`).join("");
 }
@@ -1552,7 +1688,7 @@ function render() {
   if (view !== "exam" && timerId) { /* keep exam timer running in background */ }
   nav();
   const m = $("#main");
-  m.innerHTML = ({ home: vHome, learn: vLearn, practice: vPractice, exam: vExam, labs: vLabs, progress: vProgress }[view])();
+  m.innerHTML = ({ home: vHome, learn: vLearn, gaps: vGaps, practice: vPractice, exam: vExam, labs: vLabs, progress: vProgress }[view])();
   if (view !== lastView || !["learn"].includes(view)) window.scrollTo(0, 0);
   lastView = view;
 }
@@ -1568,6 +1704,7 @@ function dots(k) { const b = rec(k)?.box || 0; return `<span class="dots" title=
 function cardBody(c) {
   return `<div class="cbody">
     ${c.low ? `<p class="note">Claude is less sure about parts of this card. Check it against Microsoft Learn or your environment.</p>` : ""}
+    ${gapOf(c.id) ? `<p class="note"><b>Not in the video:</b> ${esc(gapOf(c.id).what)}</p>` : ""}
     <div class="field"><span class="eyebrow">In plain words</span><p>${c.plain}</p></div>
     <div class="field"><span class="eyebrow">Why a consultant cares</span><p>${c.why}</p></div>
     <div class="field"><span class="eyebrow">Example</span><p>${c.ex}</p></div>
@@ -1630,6 +1767,8 @@ function vHome() {
     </div>
   </section>
 
+  <p class="note">Watching the YouTube course? It skips ${VIDEO_GAPS.length} topics from the official outline, including all of quality, asset management and landed cost. <a href="#gaps">See the gaps and practise them</a>. ${gapStats().done} of ${VIDEO_GAPS.length} ticked so far.</p>
+
   <p class="note">Topics and weights come from Microsoft's official MB-330 study guide. The explanations, questions and labs were written by Claude from general knowledge of Microsoft Learn and D365, not copied from Microsoft or from real exams. Cards marked "check this" are the ones to verify first.</p>`;
 }
 
@@ -1664,6 +1803,7 @@ function vLearn() {
     <p class="rwhy">${c.why}</p>
     <p class="rplain">${c.plain}</p>
     ${c.low ? `<p class="note">I'm less sure about parts of this one. Check it on Microsoft Learn.</p>` : ""}
+    ${gapOf(c.id) ? `<p class="note"><b>Not in the video:</b> ${esc(gapOf(c.id).what)}</p>` : ""}
     <div class="rtabs" role="tablist">${tabs.map(([k, l]) => `<button role="tab" data-act="tab" data-v="${k}" aria-selected="${ui.tab === k}">${l}</button>`).join("")}</div>
     <div class="rtab ${ui.tab === "trap" ? "is-trap" : ""}">${tabBody}</div>
     <div class="rlinks small">
@@ -1711,8 +1851,8 @@ function vFlash() {
 }
 
 // ---------- PRACTICE ----------
-function buildSession(domId, size, cardId) {
-  let pool = QUESTIONS.filter((q) => (!domId || domId === "all" || q.d === domId) && (!cardId || q.c === cardId));
+function buildSession(domId, size, cardId, cardSet) {
+  let pool = QUESTIONS.filter((q) => (!domId || domId === "all" || q.d === domId) && (!cardId || q.c === cardId) && (!cardSet || cardSet.has(q.c)));
   const due = pool.filter((q) => isDue("q:" + q.id)).sort((a, b) => rec("q:" + a.id).due - rec("q:" + b.id).due);
   let fresh = pool.filter((q) => !rec("q:" + q.id));
   if (!domId || domId === "all") {
@@ -1860,6 +2000,31 @@ function vExam() {
   </section>`;
 }
 
+// ---------- VIDEO GAPS ----------
+function gapStats() { const done = VIDEO_GAPS.filter((g) => S.gaps[g.c]).length; return { done, pct: Math.round((done / VIDEO_GAPS.length) * 100) }; }
+function vGaps() {
+  const ids = new Set(VIDEO_GAPS.map((g) => g.c));
+  const nq = QUESTIONS.filter((q) => ids.has(q.c)).length;
+  const st = gapStats();
+  const gapLabs = LABS.filter((l) => l.cards.some((id) => ids.has(id)));
+  return `<section class="stack"><h1>Not in the video</h1>
+    <p class="muted">The Exam Pass Pro course on YouTube covers the core flows but skips these parts of the official outline. This list comes from its chapter titles, so a few may get a brief mention. Every topic has a card here and most have practice questions. Tick a topic once you've read its card and can explain it out loud.</p>
+    <div class="row"><button class="btn primary" data-act="practice-gaps">Practise gap topics (${nq} questions)</button><span class="small muted" id="gapcount">${st.done} of ${VIDEO_GAPS.length} ticked</span></div>
+    <div class="bar"><i id="gapbar" style="width:${st.pct}%"></i></div></section>
+    ${DOMAINS.map((d) => {
+      const list = VIDEO_GAPS.filter((g) => card(g.c)?.d === d.id);
+      if (!list.length) return "";
+      return `<section class="stack"><div class="row" style="justify-content:space-between"><h2>${d.name}</h2><span class="small muted">${d.weight} of the exam · ${list.length} gaps</span></div>
+        <div class="domains">${list.map((g) => { const c = card(g.c); return `<div class="dom">
+          <div class="stack" style="gap:2px"><h3>${esc(c.t)}</h3><span class="meta">${esc(g.what)}</span></div>
+          <div>${dots("c:" + c.id)}</div>
+          <div class="row"><label class="toggle"><input type="checkbox" data-act="gap" data-v="${c.id}" ${S.gaps[c.id] ? "checked" : ""}> Got it</label><button class="btn" data-act="open-card" data-v="${c.id}">Read</button></div>
+        </div>`; }).join("")}</div></section>`;
+    }).join("")}
+    <section class="stack"><h2>Labs that cover gaps</h2>
+      <div class="row">${gapLabs.map((l) => `<button class="btn" data-act="open-lab" data-v="${l.id}">${esc(l.t)}</button>`).join("")}</div></section>`;
+}
+
 // ---------- LABS ----------
 function vLabs() {
   const list = LABS.filter((l) => ui.dom === "all" || l.d === ui.dom);
@@ -1917,7 +2082,7 @@ function vProgress() {
 document.addEventListener("click", (e) => {
   const t = e.target.closest("[data-act]"); if (!t) return;
   const a = t.dataset.act, v = t.dataset.v;
-  if (["guess", "flag", "step", "note", "name"].includes(a)) return; // handled by change/input
+  if (["guess", "flag", "step", "note", "name", "gap"].includes(a)) return; // handled by change/input
   switch (a) {
     case "close-ov": t.closest(".ov").remove(); break;
     case "dom": ui.dom = v; render(); break;
@@ -1951,6 +2116,8 @@ document.addEventListener("click", (e) => {
     }
     case "next": session.i++; session.picked = []; session.checked = false; session.guessed = false; session.order = null; render(); break;
     case "end-session": session = null; render(); break;
+    case "practice-gaps": session = buildSession("all", 10, null, new Set(VIDEO_GAPS.map((g) => g.c))); session.label = "Topics not in the video"; go("practice"); render(); break;
+    case "open-lab": ui.open = v; ui.dom = "all"; go("labs"); break;
     case "start-exam": startExam(); break;
     case "xpick": {
       const it = exam.items[exam.i], oi = +v, multi = it.q.a.length > 1;
@@ -1982,6 +2149,7 @@ document.addEventListener("click", (e) => {
 document.addEventListener("change", (e) => {
   const t = e.target, a = t.dataset?.act;
   if (a === "guess") session.guessed = t.checked;
+  if (a === "gap") { S.gaps[t.dataset.v] = t.checked; touchDay(); save(); const st = gapStats(); const n = $("#gapcount"), b = $("#gapbar"); if (n) n.textContent = `${st.done} of ${VIDEO_GAPS.length} ticked`; if (b) b.style.width = st.pct + "%"; }
   if (a === "flag") { t.checked ? exam.flagged.add(exam.i) : exam.flagged.delete(exam.i); render(); }
   if (a === "step") {
     const id = t.dataset.lab, st = S.labs[id] || []; st[+t.dataset.v] = t.checked; S.labs[id] = st; touchDay(); save();
