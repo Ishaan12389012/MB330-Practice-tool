@@ -178,7 +178,7 @@ footer { max-width: 980px; margin: 0 auto; padding-left: max(16px, env(safe-area
 </style>
 <style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style></head><body>
 <header class="top"><div class="top-in">
-  <div class="brand"><b>MB-330 Field Kit</b><span>Supply Chain Management Functional Consultant</span></div>
+  <div class="brand"><b>MB-330 Field Kit</b><span>Supply Chain Management Functional Consultant</span><span id="sync" style="margin-left:auto"></span></div>
   <nav class="tabs" id="tabs" aria-label="Sections"></nav>
 </div></header>
 <main id="main"></main>
@@ -1637,7 +1637,72 @@ const learnLink = (t) => `https://learn.microsoft.com/en-us/search/?terms=${enco
 const blank = () => ({ name: "", srs: {}, labs: {}, notes: {}, exams: [], days: [], gaps: {} });
 let S = blank();
 try { const raw = localStorage.getItem(KEY); if (raw) S = Object.assign(blank(), JSON.parse(raw)); } catch (e) {}
-function save() { try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} }
+function save() { S.at = Date.now(); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {} queueSync(); }
+
+// ---------- sync across devices (Claude account, private per person) ----------
+let DOC = null, syncTimer = null, writing = false, pending = false;
+function setSync(t) { const el = document.getElementById("sync"); if (el) el.textContent = t; }
+function mergeState(a, b) {
+  const r = Math.max(a.reset || 0, b.reset || 0);
+  if ((a.at || 0) < r) a = blank();
+  if ((b.at || 0) < r) b = blank();
+  const newer = (a.at || 0) >= (b.at || 0) ? a : b, older = newer === a ? b : a;
+  const m = blank();
+  m.name = newer.name || older.name || "";
+  new Set([...Object.keys(a.srs || {}), ...Object.keys(b.srs || {})]).forEach((k) => {
+    const x = a.srs?.[k], y = b.srs?.[k];
+    m.srs[k] = !x ? y : !y ? x : ((x.last || 0) >= (y.last || 0) ? x : y);
+  });
+  ["labs", "notes", "gaps"].forEach((f) => (m[f] = Object.assign({}, older[f] || {}, newer[f] || {})));
+  const ex = new Map(); [...(a.exams || []), ...(b.exams || [])].forEach((e) => ex.set(e.at, e));
+  m.exams = [...ex.values()].sort((p, q) => p.at - q.at);
+  m.days = [...new Set([...(a.days || []), ...(b.days || [])])].sort().slice(-400);
+  m.at = Math.max(a.at || 0, b.at || 0);
+  if (r) m.reset = r;
+  return m;
+}
+function queueSync() { if (!DOC) return; setSync("Saving…"); clearTimeout(syncTimer); syncTimer = setTimeout(pushSync, 1500); }
+async function pushSync() {
+  if (!DOC) return;
+  if (writing) { pending = true; return; }
+  writing = true;
+  try { await DOC.set({ json: JSON.stringify(S), at: S.at || Date.now() }); setSync("Synced to your Claude account"); }
+  catch (e) {
+    if (e && e.code === "unavailable") { setTimeout(pushSync, 1500 + Math.random() * 1500); }
+    else if (e && (e.code === "invalid_argument" || e.code === "revoked" || e.code === "not_granted")) { DOC = null; setSync("Saved on this device only"); }
+    else setSync("Couldn't sync. Saved on this device.");
+  }
+  writing = false;
+  if (pending) { pending = false; pushSync(); }
+}
+function applyRemote(snap) {
+  if (!snap || !snap.exists) { pushSync(); return; }
+  if (snap.metadata && snap.metadata.hasPendingWrites) return;
+  let remote; try { remote = JSON.parse(snap.data().json); } catch (e) { return; }
+  if (!remote || typeof remote.srs !== "object") return;
+  const before = JSON.stringify(S);
+  S = mergeState(S, remote);
+  try { localStorage.setItem(KEY, JSON.stringify(S)); } catch (e) {}
+  const needPush = Object.keys(S.srs).length !== Object.keys(remote.srs || {}).length || S.exams.length !== (remote.exams || []).length || (S.at || 0) > (remote.at || 0);
+  if (needPush) queueSync(); else setSync("Synced to your Claude account");
+  if (JSON.stringify(S) !== before) {
+    const ae = document.activeElement;
+    if (!(ae && ae.matches && ae.matches("input,textarea")) && !exam) render();
+  }
+}
+async function initSync() {
+  if (!window.claude || typeof window.claude.use !== "function") { setSync("Saved on this device only"); return; }
+  setSync("Connecting…");
+  try {
+    const [db, user] = await Promise.all([window.claude.use("db"), window.claude.use("user")]);
+    const id = db && user ? await user.id() : null;
+    if (!id) { setSync("Saved on this device only"); return; }
+    DOC = db.collection("data/users/" + id).doc("fieldkit");
+    const slow = setTimeout(() => setSync("Can't reach sync yet. Saved on this device."), 10000);
+    DOC.onSnapshot((snap) => { if (!snap.metadata || !snap.metadata.fromCache) clearTimeout(slow); applyRemote(snap); },
+      () => { clearTimeout(slow); DOC = null; setSync("Saved on this device only"); });
+  } catch (e) { DOC = null; setSync("Saved on this device only"); }
+}
 function touchDay() { const d = new Date().toISOString().slice(0, 10); if (!S.days.includes(d)) { S.days.push(d); if (S.days.length > 400) S.days.shift(); } }
 function streak() {
   let n = 0; const set = new Set(S.days); const t = new Date();
@@ -2053,7 +2118,7 @@ function vProgress() {
   const labsDone = LABS.filter((l) => l.steps.every((_, i) => (S.labs[l.id] || [])[i])).length;
   const best = S.exams.length ? Math.max(...S.exams.map((e) => e.score)) : null;
   return `<section class="stack"><h1>Your progress</h1>
-    <p class="muted">Progress is saved in this browser only. Each friend keeps their own. Use the backup below to move it to another device.</p>
+    <p class="muted">Open the kit from its Claude link while signed in to Claude, and your progress syncs across your devices. It's private to you, and each person who opens it keeps their own. Anywhere else, such as the GitHub copy, progress stays in that browser, so use the backup below to move it.</p>
     <label class="stack" style="gap:4px;max-width:340px"><span class="eyebrow">Your name (optional)</span><input class="search" id="name" data-act="name" value="${esc(S.name)}" placeholder="e.g. Raj"></label></section>
     <section class="loop">
       <div><span class="k">Seen</span><b style="font-size:1.6rem;font-family:var(--f-display)">${seen} / ${total}</b><span class="small muted">cards and questions</span></div>
@@ -2143,7 +2208,7 @@ document.addEventListener("click", (e) => {
       break;
     }
     case "reset1": $("#reset2").innerHTML = `<span class="small">This can't be undone.</span> <button class="btn danger" data-act="reset2">Yes, erase everything</button>`; break;
-    case "reset2": S = blank(); save(); session = flash = exam = null; render(); break;
+    case "reset2": S = blank(); S.reset = Date.now(); save(); session = flash = exam = null; render(); break;
   }
 });
 document.addEventListener("change", (e) => {
@@ -2174,5 +2239,6 @@ document.addEventListener("keydown", (e) => {
 });
 
 render();
+initSync();
 })();
 </script></body></html>

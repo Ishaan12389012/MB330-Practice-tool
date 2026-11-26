@@ -3,7 +3,8 @@
 A one-file study app for MB-330 (Dynamics 365 Supply Chain Management Functional Consultant).
 
 - `index.html` is the whole app. Open it in a browser, or host it anywhere.
-- Progress is saved in each person's browser (localStorage). Use Progress > Backup to move it.
+- When opened from its Claude artifact link while signed in, progress syncs across devices through the person's Claude account (private per person).
+- Hosted anywhere else (e.g. GitHub Pages), progress is saved in each person's browser (localStorage). Use Progress > Backup to move it.
 
 ## Put it on GitHub Pages
 1. Create a new public repository on GitHub, e.g. `mb330-field-kit`.
